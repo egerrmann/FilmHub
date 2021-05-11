@@ -1,0 +1,13 @@
+﻿@model Database.Film.Film
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "_Layout";
+}
+
+<h2 style="margin-top: 10%" align="center">@Model.Title</h2>
+<p style="margin-top: 5%"><img src="@Model.Image" height="400" width="275"></p>
+
+    <a href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
+        <button type="submit" class="btn btn-primary">Add to favourite</button>
+    </a>

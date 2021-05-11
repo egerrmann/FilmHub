@@ -1,0 +1,24 @@
+﻿@model List<Database.Film.Film>
+
+@{
+    ViewBag.Title = @ViewBag.currentCategory;
+    Layout = "_Layout";
+}
+
+<h2 style="margin-top: 7%" align="center">@ViewBag.currentCategory</h2>
+<p>
+    <form method="post">
+        <div id="thumbs" style="margin-top: 10%">    
+            @foreach (var film in Model)
+            {
+                if (film.Genre == @ViewBag.currentCategory)
+                {
+                    <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+                        <img src='@Url.Content(@film.Image)' height="200" width="200"/>
+                    </a>   
+                }
+            }
+            <span class="stretch"></span>
+        </div>
+    </form>
+</p>

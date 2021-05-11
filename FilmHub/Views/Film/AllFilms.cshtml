@@ -1,0 +1,31 @@
+﻿@model List<Database.Film.Film>
+
+@{
+    ViewBag.Title = "Films";
+    Layout = "_Layout";
+}
+
+
+<h1 style="margin-top: 10%" align="center">FilmHub Films</h1>
+<form method="post">
+    @foreach (var categories in ViewBag.list)
+    {
+        {
+            <a href='@Url.Action("CurrentCategoryFilms", "Film", new {category = categories})'>
+                <p>@Url.Content(categories)</p>
+            </a>
+        }
+    }
+</form>
+<p>
+    <form method="post">
+    <div id="thumbs" style="margin-top: 10%">    
+        @foreach (var film in Model)
+        {
+            <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+                <img src='@Url.Content(film.Image)' height="200" width="200"/>
+            </a>
+        }
+        <span class="stretch"></span>
+    </div>
+    </form>

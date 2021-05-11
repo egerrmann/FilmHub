@@ -1,0 +1,26 @@
+﻿@model Database.User.User
+
+@{
+    ViewBag.Title = @Model.Name;
+    Layout = "_Layout";
+}
+
+<style>
+   .fig {
+    text-align: center; /* Выравнивание по центру */ 
+   }
+</style>
+
+<h2 align="center">Hello, @Model.Name!</h2>
+
+<p class="fig"><img src="https://img.freedisc.pl/photo/1044110/2/l/dobry-wieczor-pies44444_photo.png" 
+                    alt="" width="650" height="500"></p>
+@foreach (var favouriteFilm in Model.Favourite)
+{
+    <div>
+        <a href='@Url.Action("CurrentFilm", "Film", new {image = favouriteFilm.Image})'><h6>@favouriteFilm.Title</h6></a>
+    </div>
+}
+<form method="post">
+    <button type="submit" class="btn btn-primary">Log out</button>
+</form>
