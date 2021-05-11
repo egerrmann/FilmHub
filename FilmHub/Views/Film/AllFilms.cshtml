@@ -2,30 +2,63 @@
 
 @{
     ViewBag.Title = "Films";
-    Layout = "_Layout";
+    ViewBag.container = " ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<body>
+<style>
 
-
-<h1 style="margin-top: 10%" align="center">FilmHub Films</h1>
-<form method="post">
-    @foreach (var categories in ViewBag.list)
-    {
-        {
-            <a href='@Url.Action("CurrentCategoryFilms", "Film", new {category = categories})'>
-                <p>@Url.Content(categories)</p>
-            </a>
-        }
+    #sidebar{
+        background-color: #ddd;
+        float: left;
+        width: 150px;
+        border-radius: 10px;
+        margin-left: 2%;
     }
-</form>
-<p>
+    
+    #main{
+        background-color: #ffffff;
+        height: auto;
+        margin-left: 14%;
+    }
+    
+</style>
+<link rel="stylesheet" type="text/css" href="~\css\HomeIndex.css"/>
+
+<div class="text-center">
+    <h1 class="display-4" style="margin-bottom: 5%; margin-top: 3%"><img src="~/images/FilmHubBlack.png" style="margin-bottom: 5px" width="220px" alt="FilmHub logo"> films</h1>
+</div>
+
+<div id="sidebar">
     <form method="post">
-    <div id="thumbs" style="margin-top: 10%">    
-        @foreach (var film in Model)
-        {
-            <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
-                <img src='@Url.Content(film.Image)' height="200" width="200"/>
-            </a>
-        }
-        <span class="stretch"></span>
-    </div>
+        <h4 style="margin-bottom: 4%; text-align: center">Categories:</h4>
+        <ul style="margin-left: -13px">
+            @foreach (var categories in ViewBag.list)
+            {
+                <li>
+                    <a href='@Url.Action("CurrentCategoryFilms", "Film", new {category = categories})'>
+                        @Url.Content(categories)
+                    </a>
+                </li>
+            }
+        </ul>
     </form>
+</div>
+
+<div id="main">
+    <form method="post">
+        <div id="thumbs">
+            @foreach (var film in Model)
+            {
+                <figure class="sign" style="display: inline-block; text-align: center; margin-right: 15px">
+                    <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+                        <img style="border-radius: 10px; border: 1px solid #000000;" src='@Url.Content(film.Image)' height="320" width="240"/>
+                    </a>
+                    <figcaption style="text-align: center">@Url.Content(film.Title)</figcaption>
+                </figure>
+            }
+            <span class="stretch"></span>
+        </div>
+    </form>
+</div>
+</body>

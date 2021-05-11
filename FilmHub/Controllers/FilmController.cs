@@ -43,6 +43,7 @@ namespace FilmHub.Controllers
         {
             List<Film> currentCategoryFilms = _filmService.CurrentCategoryFilms(category);
             ViewBag.currentCategory = category;
+            ViewBag.list = _filmService.GetAllCategories();
             return View(currentCategoryFilms);
         }
         
@@ -51,6 +52,7 @@ namespace FilmHub.Controllers
         {
             //int currentFilmId = IFilmService.currentFilmId;
             Film currentFilm = _filmService.GetCurrentFilmInfo(IFilmService.currentFilmId);
+            ViewBag.lastElement = currentFilm.Actors.Last();
             return View(currentFilm);
         }
     }
