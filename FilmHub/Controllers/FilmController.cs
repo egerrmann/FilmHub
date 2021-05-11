@@ -27,7 +27,8 @@ namespace FilmHub.Controllers
         public IActionResult AllFilms()
         {
             List<Film> films = _filmService.GetAllFilms();
-            ViewBag.list = _filmService.GetAllCategories();
+            ViewBag.categoriesList = _filmService.GetAllCategories();
+            ViewBag.sortedByYearlist = _filmService.SortFilmsByYear();
             return View(films);
         }
         
@@ -49,9 +50,59 @@ namespace FilmHub.Controllers
         [HttpGet]
         public IActionResult FilmInfo()
         {
-            //int currentFilmId = IFilmService.currentFilmId;
             Film currentFilm = _filmService.GetCurrentFilmInfo(IFilmService.currentFilmId);
             return View(currentFilm);
         }
+
+        [HttpGet]
+        public IActionResult SearchAndGetFilms(string parameter)
+        {
+            ViewBag.parameter = parameter;
+            List<FilmViewModel> foundFilms = new List<FilmViewModel>();
+            List<Film> films = _filmService.SearchAndGetFilms(parameter);
+            foreach (var film in films)
+            {
+                FilmViewModel currentFilm = new FilmViewModel
+                {
+                    Title = film.Title,
+                    Year = film.Year,
+                    Genre = film.Genre,
+                    Director = film.Director,
+                    Summary = film.Summary,
+                    Time = film.Time,
+                    Age = film.Age,
+                    Country = film.Country,
+                    Actors = film.Actors,
+                    Image = film.Image
+                };
+                foundFilms.Add(currentFilm);
+            }
+            
+            return View(foundFilms);
+        }
+
+        [HttpGet]
+        public IActionResult LeaveComment(string comment)
+        {
+            if (IRegistrationService.currentUserId == 0)
+            {
+                return RedirectToAction("LogIn", "Registration");
+            }
+            _filmService.LeaveComment(comment, IRegistrationService.currentUserId, IFilmService.currentFilmId);
+            return RedirectToAction("FilmInfo", "Film");
+        }
+
+        /*[HttpGet]
+        public IActionResult AddToBookmarks(string filmImage)
+        {
+            if (IRegistrationService.currentUserId == 0)
+            {
+                return RedirectToAction("LogIn", "Registration");
+            }
+
+            var currentFilmId = _filmService.GetCurrentFilmId(filmImage);
+            _filmService.AddToBookmarks(currentFilmId, IRegistrationService.currentUserId);
+            return RedirectToAction("FilmInfo", "Film");
+        }*/
     }
 }

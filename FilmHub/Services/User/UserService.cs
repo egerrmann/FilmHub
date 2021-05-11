@@ -43,5 +43,19 @@ namespace FilmHub.Services.User
         {
             _userRepository.AddToFavourite(image, id);
         }
+
+        public List<Database.Film.Film> RecommendedFilmsDirector(int id)
+        {
+            return _userRepository.RecommendedFilmsDirector(id);
+        }
+        public List<Database.Film.Film> RecommendedFilmsGenre(int id)
+        {
+            return _userRepository.RecommendedFilmsGenre(id);
+        }
+
+        public void ChangeUserPassword(int id, string newPassword)
+        {
+            _userRepository.ChangeUserPassword(id, newPassword);
+        }
     }
 }

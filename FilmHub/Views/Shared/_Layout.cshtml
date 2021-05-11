@@ -16,18 +16,21 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse ml-5" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-            <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
-            <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Film" asp-action="AllFilms">Films</a></li>
-            <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Registration" asp-action="Index">Registration</a></li>
-            <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="ShowPersonalPage">User page</a></li>
-            <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Registration" asp-action="LogIn">Log in</a></li>
-          </ul>
-          <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Films, serials, actors..." aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Film" asp-action="AllFilms">Films</a></li>
+                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Registration" asp-action="Index">Registration</a></li>
+                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="ShowPersonalPage">User page</a></li>
+                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Registration" asp-action="LogIn">Log in</a></li>
+            </ul>
+            @using (Html.BeginForm("SearchAndGetFilms", "Film", FormMethod.Get))
+            {
+                <div class="container" style="display: flex">
+                <input class="form-control mr-sm-2" type="text" name="parameter" placeholder="Films, serials, actors..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </div>
+            }
         </div>
       </nav>
 </header>

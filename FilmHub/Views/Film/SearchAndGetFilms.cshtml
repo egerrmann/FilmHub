@@ -1,0 +1,17 @@
+﻿@model List<FilmViewModel>
+
+@{
+    ViewBag.Title = ViewBag.parameter;
+    Layout = "_Layout";
+}
+
+<h2 align="center">Everything that is found on request @ViewBag.parameter</h2>
+
+@foreach (var film in Model)
+{
+    {
+        <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+            <img src='@Url.Content(film.Image)' height="200" width="200"/>
+        </a>
+    }
+}
