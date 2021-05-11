@@ -9,5 +9,7 @@ namespace Database.DbModels
         public string Name { get; set; }
         public string Password { get; set; }
         public List<FilmDbModel> Favourite { get; set; }
+        //public List<FilmDbModel> Bookmarks { get; set; }
+        public List<CommentDbModel> Comments { get; set; }
     }
 }

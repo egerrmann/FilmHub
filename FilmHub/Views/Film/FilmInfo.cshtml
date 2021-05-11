@@ -8,6 +8,22 @@
 <h2 style="margin-top: 10%" align="center">@Model.Title</h2>
 <p style="margin-top: 5%"><img src="@Model.Image" height="400" width="275"></p>
 
-    <a href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
-        <button type="submit" class="btn btn-primary">Add to favourite</button>
-    </a>
+<a href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
+    <button type="submit" class="btn btn-primary">Add to favourite</button>
+</a>
+
+@*<a href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
+    <button type="submit" class="btn btn-primary">Add to bookmarks</button>
+</a>*@
+
+@using (Html.BeginForm("LeaveComment", "Film", FormMethod.Get))
+{
+    <div>
+        <input class="form-control mr-sm-2" type="text" name="comment" placeholder="Type something..." aria-label="Comment">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Leave a comment</button>
+    </div>
+}
+@foreach (var comment in Model.Comments)
+{
+    <h6>@comment.User.Name - @comment.Text</h6>
+}

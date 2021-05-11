@@ -12,5 +12,8 @@ namespace FilmHub.Services.User
         int CurrentUser_Id(Database.User.User current_user);
         Database.User.User FindById(int id);
         void AddToFavourite(string image, int id);
+        public List<Database.Film.Film> RecommendedFilmsDirector(int id);
+        public List<Database.Film.Film> RecommendedFilmsGenre(int id);
+        public void ChangeUserPassword(int id, string newPassword);
     }
 }

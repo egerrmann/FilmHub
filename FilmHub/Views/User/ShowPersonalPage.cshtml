@@ -13,14 +13,47 @@
 
 <h2 align="center">Hello, @Model.Name!</h2>
 
+<a href='@Url.Action("ChangeUserPassword")'>
+    <button type="submit" class="btn btn-primary">Change password</button>
+</a>
+
 <p class="fig"><img src="https://img.freedisc.pl/photo/1044110/2/l/dobry-wieczor-pies44444_photo.png" 
                     alt="" width="650" height="500"></p>
-@foreach (var favouriteFilm in Model.Favourite)
+
+<h4>Your favourites</h4>
+<div>
+    @foreach (var favouriteFilm in Model.Favourite)
+    {
+        <ul class="list-group">
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                <a href='@Url.Action("CurrentFilm", "Film", new {image = favouriteFilm.Image})'>@favouriteFilm.Title</a>
+            </li>
+        </ul>
+    }
+</div>
+
+@*<form method="post">
+    <button type="submit" class="btn btn-primary">Remove from favourite</button>
+</form>*@
+
+<h4>FilmHub recommendations</h4>
+<h6>With directors you like</h6>
+@foreach (var recommendedFilmDirector in ViewBag.RecommendedFilmsDirector)
 {
     <div>
-        <a href='@Url.Action("CurrentFilm", "Film", new {image = favouriteFilm.Image})'><h6>@favouriteFilm.Title</h6></a>
+        <a href='@Url.Action("CurrentFilm", "Film", new {image = recommendedFilmDirector.Image})'><h6>@recommendedFilmDirector.Title</h6></a>
     </div>
 }
+
+<h6>With genres you like</h6>
+@foreach (var recommendedFilmGenre in ViewBag.RecommendedFilmsGenre)
+{
+    <div>
+        <a href='@Url.Action("CurrentFilm", "Film", new {image = recommendedFilmGenre.Image})'><h6>@recommendedFilmGenre.Title</h6></a>
+    </div>
+}
+
 <form method="post">
     <button type="submit" class="btn btn-primary">Log out</button>
 </form>

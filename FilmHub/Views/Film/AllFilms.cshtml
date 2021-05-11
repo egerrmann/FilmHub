@@ -8,7 +8,7 @@
 
 <h1 style="margin-top: 10%" align="center">FilmHub Films</h1>
 <form method="post">
-    @foreach (var categories in ViewBag.list)
+    @foreach (var categories in ViewBag.categoriesList)
     {
         {
             <a href='@Url.Action("CurrentCategoryFilms", "Film", new {category = categories})'>
@@ -17,6 +17,7 @@
         }
     }
 </form>
+
 <p>
     <form method="post">
     <div id="thumbs" style="margin-top: 10%">    
@@ -29,3 +30,15 @@
         <span class="stretch"></span>
     </div>
     </form>
+
+<h1 style="margin-top: 10%" align="center">New Films</h1>
+<form method="post">
+    @foreach (var film in ViewBag.sortedByYearList)
+    {
+        {
+            <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+                <img src='@Url.Content(film.Image)' height="200" width="200"/>
+            </a>
+        }
+    }
+</form>
