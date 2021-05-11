@@ -8,6 +8,8 @@ namespace FilmHub.Services.Film
     public class FilmService : IFilmService
     {
         private readonly IFilmRepository _filmRepository;
+        
+        static int currentFilmId;
 
         public FilmService(IFilmRepository filmRepository)
         {
@@ -25,7 +27,9 @@ namespace FilmHub.Services.Film
 
         public Database.Film.Film GetCurrentFilmInfo(int currentFilmId)
         {
-            return _filmRepository.GetCurrentFilmInfo(currentFilmId);
+            var currentFilm = _filmRepository.GetCurrentFilmInfo(currentFilmId);
+            currentFilm.Comments = _filmRepository.GetAllComments(currentFilmId);
+            return currentFilm;
         }
 
         public List<Database.Film.Film> CurrentCategoryFilms(string category)
@@ -37,5 +41,25 @@ namespace FilmHub.Services.Film
         {
             return _filmRepository.AllCategories();
         }
+
+        public List<Database.Film.Film> SortFilmsByYear()
+        {
+            return _filmRepository.SortFilmsByYear();
+        }
+
+        public List<Database.Film.Film> SearchAndGetFilms(string parameter)
+        {
+            return _filmRepository.SearchAndGetFilms(parameter);
+        }
+
+        public void LeaveComment(string comment, int userId, int filmId)
+        {
+            _filmRepository.LeaveComment(comment, userId, filmId);
+        }
+
+        /*public void AddToBookmarks(int filmId, int userId)
+        {
+            _filmRepository.AddToBookmarks(filmId, userId);
+        }*/
     }
 }

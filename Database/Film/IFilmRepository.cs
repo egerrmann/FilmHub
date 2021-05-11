@@ -9,5 +9,10 @@ namespace Database.Film
         Film GetCurrentFilmInfo(int currentFilmId);
         List<Film> CurrentCategoryFilms(string category);
         List<string> AllCategories();
+        List<Film> SortFilmsByYear();
+        List<Film> SearchAndGetFilms(string parameter);
+        void LeaveComment(string comment, int userId, int filmId);
+        List<Comment> GetAllComments(int filmId);
+        //void AddToBookmarks(int film, int userId);
     }
 }

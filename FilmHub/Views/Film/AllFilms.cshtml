@@ -60,5 +60,17 @@
             <span class="stretch"></span>
         </div>
     </form>
+
+<h1 style="margin-top: 10%" align="center">New Films</h1>
+<form method="post">
+    @foreach (var film in ViewBag.sortedByYearList)
+    {
+        {
+            <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+                <img src='@Url.Content(film.Image)' height="200" width="200"/>
+            </a>
+        }
+    }
+</form>
 </div>
 </body>
