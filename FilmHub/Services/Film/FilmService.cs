@@ -57,9 +57,9 @@ namespace FilmHub.Services.Film
             _filmRepository.LeaveComment(comment, userId, filmId);
         }
 
-        /*public void AddToBookmarks(int filmId, int userId)
+        public void AddToBookmarks(int filmId, int userId)
         {
             _filmRepository.AddToBookmarks(filmId, userId);
-        }*/
+        }
     }
 }

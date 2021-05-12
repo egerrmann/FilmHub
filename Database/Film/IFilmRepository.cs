@@ -13,6 +13,6 @@ namespace Database.Film
         List<Film> SearchAndGetFilms(string parameter);
         void LeaveComment(string comment, int userId, int filmId);
         List<Comment> GetAllComments(int filmId);
-        //void AddToBookmarks(int film, int userId);
+        void AddToBookmarks(int film, int userId);
     }
 }

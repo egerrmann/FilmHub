@@ -95,7 +95,7 @@ namespace FilmHub.Controllers
             return RedirectToAction("FilmInfo", "Film");
         }
 
-        /*[HttpGet]
+        [HttpGet]
         public IActionResult AddToBookmarks(string filmImage)
         {
             if (IRegistrationService.currentUserId == 0)
@@ -106,6 +106,6 @@ namespace FilmHub.Controllers
             var currentFilmId = _filmService.GetCurrentFilmId(filmImage);
             _filmService.AddToBookmarks(currentFilmId, IRegistrationService.currentUserId);
             return RedirectToAction("FilmInfo", "Film");
-        }*/
+        }
     }
 }

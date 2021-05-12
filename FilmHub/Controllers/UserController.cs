@@ -32,6 +32,7 @@ namespace FilmHub.Controllers
             user = _userService.FindById(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsDirector = _userService.RecommendedFilmsDirector(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsGenre = _userService.RecommendedFilmsGenre(IRegistrationService.currentUserId);
+            //ViewBag.SimilarUsers = _userService.SimilarUsers(IRegistrationService.currentUserId);
             return View(user);
         }
 

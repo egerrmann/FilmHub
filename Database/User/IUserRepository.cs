@@ -15,6 +15,6 @@ namespace Database.User
         List<Film.Film> RecommendedFilmsDirector(int id);
         List<Film.Film> RecommendedFilmsGenre(int id);
         void ChangeUserPassword(int id, string newPassword);
-        //List<User> UsersWithSimilarFavourites(int currentUserId);
+        //List<User> SimilarUsers(int currentUserId);
     }
 }

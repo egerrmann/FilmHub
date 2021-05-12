@@ -136,7 +136,7 @@ namespace Database.Film
         {
             UserDbModel currentUser = _dbContext.FilmHubUsers.Include(u => u.Favourite)
                 .Include(u => u.Comments)
-                /*.Include(u => u.Bookmarks)*/
+                .Include(u => u.Bookmarks)
                 .FirstOrDefault(u => u.Id == userId);
             FilmDbModel currentFilm = _dbContext.FilmHubFilms.Include(f => f.Comments)
                 .FirstOrDefault(f => f.Id == filmId);
@@ -163,7 +163,7 @@ namespace Database.Film
             return comments;
         }
         
-        /*public void AddToBookmarks(int filmId, int userId)
+        public void AddToBookmarks(int filmId, int userId)
         {
             var currentUser = _dbContext.FilmHubUsers.Include(u => u.Favourite)
                 .Include(u => u.Comments)
@@ -172,6 +172,6 @@ namespace Database.Film
                 .FirstOrDefault(f => f.Id == filmId);
             currentUser.Bookmarks.Add(currentFilm);
             _dbContext.SaveChanges();
-        }*/
+        }
     }
 }
