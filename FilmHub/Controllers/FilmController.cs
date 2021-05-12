@@ -27,6 +27,7 @@ namespace FilmHub.Controllers
         public IActionResult AllFilms()
         {
             List<Film> films = _filmService.GetAllFilms();
+            ViewBag.list = _filmService.GetAllCategories();
             ViewBag.categoriesList = _filmService.GetAllCategories();
             ViewBag.sortedByYearlist = _filmService.SortFilmsByYear();
             return View(films);
@@ -44,6 +45,7 @@ namespace FilmHub.Controllers
         {
             List<Film> currentCategoryFilms = _filmService.CurrentCategoryFilms(category);
             ViewBag.currentCategory = category;
+            ViewBag.list = _filmService.GetAllCategories();
             return View(currentCategoryFilms);
         }
         
@@ -51,6 +53,7 @@ namespace FilmHub.Controllers
         public IActionResult FilmInfo()
         {
             Film currentFilm = _filmService.GetCurrentFilmInfo(IFilmService.currentFilmId);
+            ViewBag.lastElement = currentFilm.Actors.Last();
             return View(currentFilm);
         }
 

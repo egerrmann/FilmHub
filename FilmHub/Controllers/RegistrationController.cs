@@ -83,7 +83,7 @@ namespace FilmHub.Controllers
                 Password = logInModel.Password
             };
             bool correct = _userService.Find(currUser);
-            if (correct == true)
+            if (correct)
             {
                 IRegistrationService.isLogged = true;
                 IRegistrationService.currentUserId = _userService.CurrentUser_Id(currUser);
