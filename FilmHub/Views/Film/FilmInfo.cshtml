@@ -83,6 +83,7 @@
 }
 @foreach (var comment in Model.Comments)
 {
-    <h6>@comment.User.Name - @comment.Text</h6>
+    <h6><a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = comment.User.Email})'>
+        @comment.User.Name</a> - @comment.Text</h6>
 }
 </div>

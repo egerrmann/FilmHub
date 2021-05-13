@@ -32,7 +32,7 @@ namespace FilmHub.Controllers
             user = _userService.FindById(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsDirector = _userService.RecommendedFilmsDirector(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsGenre = _userService.RecommendedFilmsGenre(IRegistrationService.currentUserId);
-            //ViewBag.SimilarUsers = _userService.SimilarUsers(IRegistrationService.currentUserId);
+            ViewBag.SimilarUsers = _userService.SimilarUsers(IRegistrationService.currentUserId);
             return View(user);
         }
 
@@ -75,6 +75,18 @@ namespace FilmHub.Controllers
             }
             _userService.AddToFavourite(currentFilmImage, currentUserId);
             return RedirectToAction("AllFilms", "Film");
+        }
+
+        [HttpGet]
+        public IActionResult ShowAnotherUserPersonalPage(string anotherUserEmail)
+        {
+            User anotherUser = _userService.FindByEmail(anotherUserEmail);
+            UserViewModel anotherUserViewModel = new UserViewModel
+            {
+                Name = anotherUser.Name,
+                Favourite = anotherUser.Favourite
+            };
+            return View(anotherUserViewModel);
         }
     }
 }

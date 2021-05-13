@@ -87,7 +87,6 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
-                    //Comments = f.Comments.Select(c => new Comment()).ToList()
                 }).ToList(),
                 Bookmarks = user.Bookmarks.Select(f => new Film.Film()
                 {
@@ -101,7 +100,6 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
-                    //Comments = f.Comments.Select(c => new Comment()).ToList()
                 }).ToList()
             }; 
             return u;
@@ -188,65 +186,113 @@ namespace Database.User
             _dbContext.SaveChanges();
         }
 
-        /*public List<User> SimilarUsers(int currentUserId)
+        public List<User> SimilarUsers(int currentUserId)
         {
             List<User> similarUsers = new List<User>();
             UserDbModel currentUser = _dbContext.FilmHubUsers.Find(currentUserId);
             int sameFilms = 0;
-            foreach (var anotherUser in _dbContext.FilmHubUsers)
+            foreach (var anotherUser in _dbContext.FilmHubUsers.Include(u => u.Bookmarks)
+                .Include(u => u.Comments).Include(u => u.Favourite))
             {
-                foreach (var currentUserFav in currentUser.Favourite)
+                sameFilms = 0;
+                if (anotherUser.Id != currentUserId)
                 {
-                    foreach (var anotherUserFav in anotherUser.Favourite)
+                    foreach (var currentUserFav in currentUser.Favourite)
                     {
-                        if (currentUserFav == anotherUserFav)
+                        foreach (var anotherUserFav in anotherUser.Favourite)
                         {
-                            sameFilms += 1;
+                            if (currentUserFav == anotherUserFav)
+                            {
+                                sameFilms += 1;
+                            }
                         }
                     }
-                }
 
-                if (sameFilms >= 2)
-                {
-                    User similarUser = new User
+                    if (sameFilms >= 2)
                     {
-                        Email = anotherUser.Email,
-                        Name = anotherUser.Name,
-                        Password = anotherUser.Password,
-                        Favourite = anotherUser.Favourite.Select(f => new Film.Film()
+                        User similarUser = new User
                         {
-                            Title = f.Title,
-                            Year = f.Year,
-                            Genre = f.Genre,
-                            Director = f.Director,
-                            Summary = f.Summary,
-                            Time = f.Time,
-                            Age = f.Age,
-                            Country = f.Country,
-                            Actors = f.Actors,
-                            Image = f.Image,
-                            //Comments = f.Comments.Select(c => new Comment()).ToList()
-                        }).ToList(),
-                        Bookmarks = anotherUser.Bookmarks.Select(f => new Film.Film()
-                        {
-                            Title = f.Title,
-                            Year = f.Year,
-                            Genre = f.Genre,
-                            Director = f.Director,
-                            Summary = f.Summary,
-                            Time = f.Time,
-                            Age = f.Age,
-                            Country = f.Country,
-                            Actors = f.Actors,
-                            Image = f.Image,
-                            //Comments = f.Comments.Select(c => new Comment()).ToList()
-                        }).ToList()
-                    };
-                    similarUsers.Add(similarUser);
+                            Email = anotherUser.Email,
+                            Name = anotherUser.Name,
+                            Password = anotherUser.Password,
+                            Favourite = anotherUser.Favourite.Select(f => new Film.Film()
+                            {
+                                Title = f.Title,
+                                Year = f.Year,
+                                Genre = f.Genre,
+                                Director = f.Director,
+                                Summary = f.Summary,
+                                Time = f.Time,
+                                Age = f.Age,
+                                Country = f.Country,
+                                Actors = f.Actors,
+                                Image = f.Image,
+                            }).ToList(),
+                            Bookmarks = anotherUser.Bookmarks.Select(f => new Film.Film()
+                            {
+                                Title = f.Title,
+                                Year = f.Year,
+                                Genre = f.Genre,
+                                Director = f.Director,
+                                Summary = f.Summary,
+                                Time = f.Time,
+                                Age = f.Age,
+                                Country = f.Country,
+                                Actors = f.Actors,
+                                Image = f.Image,
+                            }).ToList()
+                        };
+                        similarUsers.Add(similarUser);
+                    }
+                }
+                else
+                {
+                    continue;
                 }
             }
 
             return similarUsers;
-        }*/
+        }
+
+        public User FindByEmail(string userEmail)
+        {
+            UserDbModel user = _dbContext.FilmHubUsers.Include(u => u.Favourite)
+                .Include(u => u.Comments)
+                .Include(u => u.Bookmarks)
+                .FirstOrDefault(u => u.Email == userEmail);
+            var u = new User
+            {
+                Email = user.Email, 
+                Name = user.Name, 
+                Password = user.Password,
+                Favourite = user.Favourite.Select(f => new Film.Film()
+                {
+                    Title = f.Title,
+                    Year = f.Year,
+                    Genre = f.Genre,
+                    Director = f.Director,
+                    Summary = f.Summary,
+                    Time = f.Time,
+                    Age = f.Age,
+                    Country = f.Country,
+                    Actors = f.Actors,
+                    Image = f.Image,
+                }).ToList(),
+                Bookmarks = user.Bookmarks.Select(f => new Film.Film()
+                {
+                    Title = f.Title,
+                    Year = f.Year,
+                    Genre = f.Genre,
+                    Director = f.Director,
+                    Summary = f.Summary,
+                    Time = f.Time,
+                    Age = f.Age,
+                    Country = f.Country,
+                    Actors = f.Actors,
+                    Image = f.Image,
+                }).ToList()
+            }; 
+            return u;
+        }
     }
 }

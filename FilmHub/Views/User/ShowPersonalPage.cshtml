@@ -63,11 +63,13 @@
     </div>
 }
 
-@*<h3>Similar users</h3>
-@foreach (var users in ViewBag.SimilarUsers)
+<h3>Similar users</h3>
+@foreach (var user in ViewBag.SimilarUsers)
 {
-    <div>@users.Name</div>
-}*@
+    <div>
+        <a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = user.Email})'>@user.Name</a>
+    </div>
+}
 
 <form method="post">
     <button type="submit" class="btn btn-primary">Log out</button>

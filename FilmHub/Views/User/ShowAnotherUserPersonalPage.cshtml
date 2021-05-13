@@ -1,0 +1,13 @@
+﻿@model UserViewModel
+
+@{
+    ViewBag.Title = @Model.Name;
+    Layout = "_Layout";
+}
+
+<h2 align="center">@Model.Name</h2>
+<h4>@Model.Name favourites</h4>
+@foreach (var film in @Model.Favourite)
+{
+    <p><a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a></p>
+}
