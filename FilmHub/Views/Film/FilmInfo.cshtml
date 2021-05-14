@@ -30,6 +30,9 @@
     </a>
 </div>
 <div id="main">
+<a href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
+    <button type="submit" class="btn btn-primary">Add to bookmarks</button>
+</a>
 	<table class="table table-striped table-hover">
 		<tbody>
 		<tr>
@@ -72,10 +75,6 @@
 		</tr>
 		</tbody>
 	</table>
-	@*<a href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
-    <button type="submit" class="btn btn-primary">Add to bookmarks</button>
-</a>*@
-	
 </div>
 
 <!-- Comments -->
@@ -91,7 +90,8 @@
 				<div class="card p-3 mb-2" style="background: rgba(255,205,106,0.3); border-radius: 15px">
 					<div class="d-flex flex-row"> <img src="~/favicon.png" height="40" width="40" class="rounded-circle" style="margin-right: 10px">
 						<div class="d-flex flex-column ms-2">
-							<h6 class="mb-1 text-primary">@comment.User.Name</h6>
+							<h6 class="mb-1 text-primary"><a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = comment.User.Email})'>
+        @comment.User.Name</a></h6>
 							<p class="comment-text" style="font-size: 14px">@comment.Text</p>
 						</div>
 					</div>

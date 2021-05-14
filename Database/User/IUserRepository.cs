@@ -6,7 +6,6 @@ namespace Database.User
     public interface IUserRepository
     {
         int Add(User model);
-
         int Count();
         bool Find(User model);
         int CurrentUser_Id(User user);
@@ -15,6 +14,7 @@ namespace Database.User
         List<Film.Film> RecommendedFilmsDirector(int id);
         List<Film.Film> RecommendedFilmsGenre(int id);
         void ChangeUserPassword(int id, string newPassword);
-        //List<User> UsersWithSimilarFavourites(int currentUserId);
+        List<User> SimilarUsers(int currentUserId);
+        User FindByEmail(string userEmail);
     }
 }
