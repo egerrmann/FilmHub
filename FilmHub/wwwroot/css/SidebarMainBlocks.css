@@ -1,0 +1,13 @@
+﻿#sidebar{
+    background-color: #ddd;
+    float: left;
+    width: 150px;
+    border-radius: 10px;
+    margin-left: 2%;
+}
+
+#main{
+    background-image: '/images/background1.png';
+    height: auto;
+    margin-left: 14%;
+}

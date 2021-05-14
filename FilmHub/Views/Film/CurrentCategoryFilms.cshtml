@@ -2,26 +2,14 @@
 
 @{
     ViewBag.Title = ViewBag.currentCategory;
+    ViewBag.container = " ";
     Layout = "_Layout";
 }
 
-<style>
-    #sidebar{
-        background-color: #ddd;
-        float: left;
-        width: 150px;
-        border-radius: 10px;
-        margin-left: 0%;
-    }
-    #main{
-        background-color: #ffffff;
-        height: auto;
-        margin-left: 20%;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="~/css/SidebarMainBlocks.css"/>
 
-<h2 style="margin-top: 7%; margin-bottom: 8%" align="center">@ViewBag.currentCategory films:</h2>
-<div id="sidebar" class="">
+<h2 style="margin-top: 5%; margin-bottom: 5%" align="center">@ViewBag.currentCategory films:</h2>
+<div id="sidebar">
     <form method="post">
         <h4 style="margin-bottom: 4%; text-align: center">Categories:</h4>
         <ul style="margin-left: -13px">
@@ -39,14 +27,14 @@
 
 <div id="main">
 <form method="post">
-    <div id="thumbs" style="margin-top: 10%">    
+    <div id="thumbs" style="">    
         @foreach (var film in Model)
         {
             if (film.Genre == @ViewBag.currentCategory)
             {
                 <figure class="sign" style="display: inline-block; text-align: center; margin-right: 15px">
                     <a style="margin-right: 5px" href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
-                        <img style="border-radius: 10px; border: 1px solid #000000" src='@Url.Content(@film.Image)' height="320" width="240"/>
+                        <img style="border-radius: 10px; border: 1px solid #000000" src='@Url.Content(@film.Image)' height="330" width="220"/>
                     </a>
                     <figcaption style="text-align: center">@Url.Content(film.Title)</figcaption>
                 </figure>
