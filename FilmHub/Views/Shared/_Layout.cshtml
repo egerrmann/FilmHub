@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
-<body>
+<body style="background-image: url('/images/background1.png')">
 <header style="height: 35px">
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -45,9 +45,12 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer style="background: #e4e4e4" class="border-top footer text-muted">
     <div class="container">
         &copy; 2021 - FilmHub - All rights reserved - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <a style="float: right" href="https://github.com/egerrmann/FilmHub.git">
+            <img src="~/images/github-logo.png" width="27px" height="27px" title="GitHub" alt="GitHub"> 
+        </a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
