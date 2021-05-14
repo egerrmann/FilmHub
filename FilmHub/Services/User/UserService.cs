@@ -57,5 +57,15 @@ namespace FilmHub.Services.User
         {
             _userRepository.ChangeUserPassword(id, newPassword);
         }
+
+        public List<Database.User.User> SimilarUsers(int currentUserId)
+        {
+            return _userRepository.SimilarUsers(currentUserId);
+        }
+
+        public Database.User.User FindByEmail(string userEmail)
+        {
+            return _userRepository.FindByEmail(userEmail);
+        }
     }
 }

@@ -6,7 +6,8 @@ namespace Database.DbModels
     public class FilmDbModel
     {
         public int Id { get; set; }
-        public List<UserDbModel> UsersList { get; set; }
+        public List<UserDbModel> UsersWhoAddToFavouritesList { get; set; }
+        public List<UserDbModel> UsersWhoAddToBookmarksList { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
         public string Genre { get; set; }

@@ -54,6 +54,23 @@
     </div>
 }
 
+
+<h3>Your bookmarks</h3>
+@foreach (var bookmarks in Model.Bookmarks)
+{
+    <div>
+        <a href='@Url.Action("CurrentFilm", "Film", new {image = bookmarks.Image})'><h6>@bookmarks.Title</h6></a>
+    </div>
+}
+
+<h3>Similar users</h3>
+@foreach (var user in ViewBag.SimilarUsers)
+{
+    <div>
+        <a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = user.Email})'>@user.Name</a>
+    </div>
+}
+
 <form method="post">
     <button type="submit" class="btn btn-primary">Log out</button>
 </form>
