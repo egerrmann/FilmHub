@@ -24,12 +24,37 @@ namespace FilmHub.Controllers
         }
         
         [HttpGet]
-        public IActionResult AllFilms()
+        public IActionResult AllFilms(string sort)
         {
-            List<Film> films = _filmService.GetAllFilms();
+            List<Film> films = new List<Film>();
+            if (sort == null || sort == "default")
+            {
+                films = _filmService.GetAllFilms();
+                ViewBag.sortType = "Filmhub films";
+                ViewBag.button = "Sort by";
+            }
+
+            if (sort == "title")
+            {
+                films = _filmService.SortFilmsByTitle();
+                ViewBag.sortType = "Filmhub films sorted by title";
+                ViewBag.button = "Title";
+            }
+
+            if (sort == "year")
+            {
+                films = _filmService.SortFilmsByYear();
+                ViewBag.sortType = "Filmhub films sorted by year";
+                ViewBag.button = "Year";
+            }
+
+            if (sort == "duration")
+            {
+                films = _filmService.SortFilmsByDuration();
+                ViewBag.sortType = "Filmhub films sorted by duration";
+                ViewBag.button = "Duration";
+            }
             ViewBag.list = _filmService.GetAllCategories();
-            ViewBag.categoriesList = _filmService.GetAllCategories();
-            ViewBag.sortedByYearlist = _filmService.SortFilmsByYear();
             return View(films);
         }
         
@@ -76,7 +101,8 @@ namespace FilmHub.Controllers
                     Age = film.Age,
                     Country = film.Country,
                     Actors = film.Actors,
-                    Image = film.Image
+                    Image = film.Image,
+                    Trailer = film.Trailer,
                 };
                 foundFilms.Add(currentFilm);
             }

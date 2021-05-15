@@ -31,8 +31,29 @@ namespace Database.Film
                 Country = f.Country,
                 Actors = f.Actors,
                 Image = f.Image,
+                Trailer = f.Trailer,
                 Comments = f.Comments.Select(c => new Comment()).ToList()
             }).ToList();
+        }
+
+        public List<Film> GetNewFilms()
+        {
+            return _dbContext.FilmHubFilms.Where(film => film.Year == 2021)
+                .Include(f => f.Comments).Select(f => new Film
+                {
+                    Title = f.Title,
+                    Year = f.Year,
+                    Genre = f.Genre,
+                    Director = f.Director,
+                    Summary = f.Summary,
+                    Time = f.Time,
+                    Age = f.Age,
+                    Country = f.Country,
+                    Actors = f.Actors,
+                    Image = f.Image,
+                    Trailer = f.Trailer,
+                    Comments = f.Comments.Select(c => new Comment()).ToList()
+                }).ToList();
         }
 
 
@@ -60,6 +81,7 @@ namespace Database.Film
                 Country = dbCurrentFilm.Country,
                 Actors = dbCurrentFilm.Actors,
                 Image = dbCurrentFilm.Image,
+                Trailer = dbCurrentFilm.Trailer,
                 Comments = dbCurrentFilm.Comments.Select(c => new Comment()).ToList()
             };
             return currentFilm;
@@ -80,6 +102,7 @@ namespace Database.Film
                 Country = f.Country,
                 Actors = f.Actors,
                 Image = f.Image,
+                Trailer = f.Trailer,
                 Comments = f.Comments.Select(c => new Comment()).ToList()
             }).ToList();
         }
@@ -104,6 +127,22 @@ namespace Database.Film
             return sortedByYearFilms;
         }
 
+        public List<Film> SortFilmsByTitle()
+        {
+            List<Film> sortedByTitleFilms = GetAllFilms();
+            SortingByTitleAlgorithm titleComparer = new SortingByTitleAlgorithm();
+            sortedByTitleFilms.Sort(titleComparer);
+            return sortedByTitleFilms;
+        }
+
+        public List<Film> SortFilmsByDuration()
+        {
+            List<Film> sortedByDurationFilms = GetAllFilms();
+            SortingByDurationAlgorithm durationComparer = new SortingByDurationAlgorithm();
+            sortedByDurationFilms.Sort(durationComparer);
+            return sortedByDurationFilms;
+        }
+
         public List<Film> SearchAndGetFilms(string parameter)
         {
             List<Film> filmsFoundByParameter = new List<Film>();
@@ -123,6 +162,7 @@ namespace Database.Film
                         Country = film.Country,
                         Actors = film.Actors,
                         Image = film.Image,
+                        Trailer = film.Trailer,
                         Comments = film.Comments.Select(c => new Comment()).ToList()
                     };
                     filmsFoundByParameter.Add(foundFilm);

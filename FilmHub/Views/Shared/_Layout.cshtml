@@ -23,9 +23,7 @@
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Film" asp-action="AllFilms">Films</a></li>
-                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Registration" asp-action="Index">Registration</a></li>
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="ShowPersonalPage">User page</a></li>
-                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Registration" asp-action="LogIn">Log in</a></li>
             </ul>
 
             @using (Html.BeginForm("SearchAndGetFilms", "Film", FormMethod.Get))

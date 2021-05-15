@@ -16,5 +16,6 @@ namespace Database.User
         void ChangeUserPassword(int id, string newPassword);
         List<User> SimilarUsers(int currentUserId);
         User FindByEmail(string userEmail);
+        bool IsExpert(int currentUserId);
     }
 }

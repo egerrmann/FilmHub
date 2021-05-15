@@ -67,5 +67,10 @@ namespace FilmHub.Services.User
         {
             return _userRepository.FindByEmail(userEmail);
         }
+
+        public bool IsExpert(int currentUserId)
+        {
+            return _userRepository.IsExpert(currentUserId);
+        }
     }
 }
