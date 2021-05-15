@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FilmHub.Models;
+using FilmHub.Services.Film;
 
 namespace FilmHub.Controllers
 {
@@ -17,9 +18,17 @@ namespace FilmHub.Controllers
         {
             _logger = logger;
         }
+        
+        /*private readonly IFilmService _filmService;
+
+        public HomeController(IFilmService filmService)
+        {
+            _filmService = filmService;
+        }*/
 
         public IActionResult Index()
         {
+            //ViewBag.newFilms = _filmService.GetNewFilms();
             return View();
         }
 

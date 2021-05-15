@@ -1,4 +1,5 @@
-﻿@model Database.User.User
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model Database.User.User
 
 @{
     ViewBag.Title = @Model.Name;
@@ -12,6 +13,10 @@
 </style>
 
 <h2 align="center">Hello, @Model.Name!</h2>
+@if (ViewBag.isExpert == "true")
+{
+    <h6 align="right">EXPERT</h6>   
+}
 
 <a href='@Url.Action("ChangeUserPassword")'>
     <button type="submit" class="btn btn-primary">Change password</button>
@@ -32,10 +37,6 @@
         </ul>
     }
 </div>
-
-@*<form method="post">
-    <button type="submit" class="btn btn-primary">Remove from favourite</button>
-</form>*@
 
 <h4>FilmHub recommendations</h4>
 <h6>With directors you like</h6>

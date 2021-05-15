@@ -15,7 +15,8 @@ namespace FilmHub.Services.User
         public List<Database.Film.Film> RecommendedFilmsDirector(int id);
         public List<Database.Film.Film> RecommendedFilmsGenre(int id);
         public void ChangeUserPassword(int id, string newPassword);
-        List<Database.User.User> SimilarUsers(int currentUserId);
-        Database.User.User FindByEmail(string userEmail);
+        public List<Database.User.User> SimilarUsers(int currentUserId);
+        public Database.User.User FindByEmail(string userEmail);
+        bool IsExpert(int currentUserId);
     }
 }

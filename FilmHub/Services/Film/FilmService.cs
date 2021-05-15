@@ -20,6 +20,11 @@ namespace FilmHub.Services.Film
             return _filmRepository.GetAllFilms();
         }
 
+        public List<Database.Film.Film> GetNewFilms()
+        {
+            return _filmRepository.GetNewFilms();
+        }
+
         public int GetCurrentFilmId(string image)
         {
             return _filmRepository.GetCurrentFilmId(image);
@@ -45,6 +50,16 @@ namespace FilmHub.Services.Film
         public List<Database.Film.Film> SortFilmsByYear()
         {
             return _filmRepository.SortFilmsByYear();
+        }
+
+        public List<Database.Film.Film> SortFilmsByTitle()
+        {
+            return _filmRepository.SortFilmsByTitle();
+        }
+
+        public List<Database.Film.Film> SortFilmsByDuration()
+        {
+            return _filmRepository.SortFilmsByDuration();
         }
 
         public List<Database.Film.Film> SearchAndGetFilms(string parameter)
