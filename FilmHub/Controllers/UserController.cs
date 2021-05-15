@@ -8,6 +8,7 @@ using FilmHub.Services.User;
 using FilmHub.Controllers;
 using FilmHub.Models;
 using FilmHub.Services.Registration;
+using System;
 
 namespace FilmHub.Controllers
 {
@@ -27,7 +28,8 @@ namespace FilmHub.Controllers
             {
                 return RedirectToAction("Index", "Registration");
             }
-
+            int hour = DateTime.Now.Hour;
+            ViewBag.Greeting = hour < 12 ? "Good morning" : "Good afternoon";
             User user = new User();
             user = _userService.FindById(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsDirector = _userService.RecommendedFilmsDirector(IRegistrationService.currentUserId);
