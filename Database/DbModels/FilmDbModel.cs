@@ -18,6 +18,7 @@ namespace Database.DbModels
         public string Country { get; set; }
         public List<string> Actors { get; set; }
         public string Image { get; set; }
+        public string Trailer { get; set; }
         public List<CommentDbModel> Comments { get; set; } 
     }
 }

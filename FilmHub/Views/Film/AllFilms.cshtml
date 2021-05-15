@@ -17,15 +17,15 @@
 <div>
     <div class="dropdown" style="margin-bottom: 2%; text-align: right; margin-right: 10%">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort by
+                @ViewBag.button
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Title</a>
-                <a class="dropdown-item" href="#">Year</a>
-                <a class="dropdown-item" href="#">Duration</a>
-                <a class="dropdown-item" href="#">...to add...</a>
-            </div>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href='@Url.Action("AllFilms", "Film", new {sort = "title"})'>Title</a>
+            <a class="dropdown-item" href='@Url.Action("AllFilms", "Film", new {sort = "year"})'>Year</a>
+            <a class="dropdown-item" href='@Url.Action("AllFilms", "Film", new {sort = "duration"})'>Duration</a>
+            <a class="dropdown-item" href='@Url.Action("AllFilms", "Film", new {sort = "default"})'>Default</a>
         </div>
+    </div>
 </div>
 
 <div id="sidebar">
@@ -45,9 +45,9 @@
 </div>
 
 <div id="main">
-    
     <form method="post">
         <div id="thumbs">
+            <h3>@ViewBag.sortType</h3>
             @foreach (var film in Model)
             {
                 <figure class="sign" style="display: inline-block; text-align: center; margin-right: 15px">
@@ -59,18 +59,6 @@
             }
             <span class="stretch"></span>
         </div>
-    </form>
-
-    <h1 style="margin-top: 10%">New Films</h1>
-    <form method="post">
-        @foreach (var film in ViewBag.sortedByYearList)
-        {
-            {
-                <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
-                    <img src='@Url.Content(film.Image)' height="200" width="200" alt="Film Image"/>
-                </a>
-            }
-        }
     </form>
 </div>
 </body>

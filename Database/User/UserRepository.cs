@@ -87,6 +87,7 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
+                    Trailer = f.Trailer
                 }).ToList(),
                 Bookmarks = user.Bookmarks.Select(f => new Film.Film()
                 {
@@ -100,6 +101,7 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
+                    Trailer = f.Trailer
                 }).ToList()
             }; 
             return u;
@@ -138,6 +140,7 @@ namespace Database.User
                             Country = dbFilm.Country,
                             Actors = dbFilm.Actors,
                             Image = dbFilm.Image,
+                            Trailer = dbFilm.Trailer,
                             Comments = dbFilm.Comments.Select(c => new Comment()).ToList()
                         };
                         recommendedFilmsDirector.Add(film);
@@ -170,6 +173,7 @@ namespace Database.User
                             Country = dbFilm.Country,
                             Actors = dbFilm.Actors,
                             Image = dbFilm.Image,
+                            Trailer = dbFilm.Trailer,
                             Comments = dbFilm.Comments.Select(c => new Comment()).ToList()
                         };
                         recommendedFilmsGenre.Add(film);
@@ -227,6 +231,7 @@ namespace Database.User
                                 Country = f.Country,
                                 Actors = f.Actors,
                                 Image = f.Image,
+                                Trailer = f.Trailer
                             }).ToList(),
                             Bookmarks = anotherUser.Bookmarks.Select(f => new Film.Film()
                             {
@@ -240,6 +245,7 @@ namespace Database.User
                                 Country = f.Country,
                                 Actors = f.Actors,
                                 Image = f.Image,
+                                Trailer = f.Trailer
                             }).ToList()
                         };
                         similarUsers.Add(similarUser);
@@ -277,6 +283,7 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
+                    Trailer = f.Trailer
                 }).ToList(),
                 Bookmarks = user.Bookmarks.Select(f => new Film.Film()
                 {
@@ -290,9 +297,20 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
+                    Trailer = f.Trailer
                 }).ToList()
             }; 
             return u;
+        }
+
+        public bool IsExpert(int currentUserId)
+        {
+            UserDbModel currentUser = _dbContext.FilmHubUsers.Find(currentUserId);
+            if (currentUser.Comments.Count >= 10)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace FilmHub.Controllers
         {
             if (!IRegistrationService.isLogged)
             {
-                return RedirectToAction("Index", "Registration");
+                return RedirectToAction("LogIn", "Registration");
             }
             int hour = DateTime.Now.Hour;
             ViewBag.Greeting = hour < 12 ? "Good morning" : "Good afternoon";
@@ -35,6 +35,10 @@ namespace FilmHub.Controllers
             ViewBag.RecommendedFilmsDirector = _userService.RecommendedFilmsDirector(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsGenre = _userService.RecommendedFilmsGenre(IRegistrationService.currentUserId);
             ViewBag.SimilarUsers = _userService.SimilarUsers(IRegistrationService.currentUserId);
+            if (_userService.IsExpert(IRegistrationService.currentUserId))
+            {
+                ViewBag.isExpert = "true"; 
+            }
             return View(user);
         }
 
@@ -64,7 +68,7 @@ namespace FilmHub.Controllers
         {
             IRegistrationService.isLogged = false;
             IRegistrationService.currentUserId = 0;
-            return RedirectToAction("Index", "Registration");
+            return RedirectToAction("LogIn", "Registration");
         }
 
         [HttpGet]
