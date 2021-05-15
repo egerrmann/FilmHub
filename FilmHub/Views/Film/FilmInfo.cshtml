@@ -8,8 +8,8 @@
 <style>
     #sidebar{
         float: left;
-        width: 300px;
-        height: 400px;
+        width: 280px;
+        height: 480px;
     }
     
     #main{
@@ -25,8 +25,11 @@
 <div id="sidebar">
     <img style="border-radius: 10px; border: 1px solid #000000" src="@Model.Image" height="420" width="280" alt="">
     <p></p>
-    <a href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
-        <button type="submit" class="btn btn-primary">Add to favourite</button>
+    <a style="width: 145px" href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
+	    <button style="width: 145px" type="submit" class="btn btn-primary">Add to favourite</button>
+    </a>
+    <a style="width: 130px; float: right" href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
+        <button style="width: 130px" type="submit" class="btn btn-primary">Watch Later</button>
     </a>
 </div>
 <div id="main">
