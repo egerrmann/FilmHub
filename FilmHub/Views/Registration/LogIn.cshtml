@@ -5,16 +5,18 @@
     Layout = "_Layout";
 }
 
-<h2 style="margin-top: 10%" align="center">Log in</h2>
-<form method="post">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email</label>
-    <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email">
+<h2 style="margin-top: 60px; margin-bottom: 35px" align="center">Log in</h2>
+<form method="post" style="width: 30%; background: rgba(255,205,106,0.3); border-radius: 25px" class="row g-3 col-12 col-lg-10 col-xl-8 mx-auto">
+  <div style="margin-bottom: 15px; margin-top: 40px" class="col-md-12">
+      <input type="email" name="name" class="form-control" placeholder="Email" id="inputEmail4">
+    </div>
+  <div style="margin-bottom: 15px" class="col-md-12">
+    <input type="password" name="password" class="form-control" placeholder="Password" id="inputPassword4">
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  <div class="col-md-8">
+  <p>Don't have an account? <a href='@Url.Action("Index", "Registration")'>Sign up</a></p>
   </div>
-  <button type="submit" class="btn btn-primary">Log in</button>
-  <p>If you don't have an account <a href='@Url.Action("Index", "Registration")'>sign up</a></p>
+<div class="col-md-4">
+  <button style="float: right; margin-bottom: 20px; margin-top: 10px" type="submit" class="btn btn-primary">Log in</button>
+</div>
 </form>

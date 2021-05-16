@@ -16,7 +16,7 @@
 
 <div>
     <div class="dropdown" style="margin-bottom: 2%; text-align: right; margin-right: 10%">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button style="width: 120px" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @ViewBag.button
             </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -47,7 +47,6 @@
 <div id="main">
     <form method="post">
         <div id="thumbs">
-            <h3>@ViewBag.sortType</h3>
             @foreach (var film in Model)
             {
                 <figure class="sign" style="display: inline-block; text-align: center; margin-right: 15px">

@@ -22,7 +22,7 @@
 <link rel="stylesheet" type="text/css" href="~/css/Comments.css"/>
 
 <h2 style="margin-top: 6%; margin-bottom: 5%">@Model.Title</h2>
-<div id="sidebar">
+<div id="sidebar" style="margin-bottom: 25px">
     <img style="border-radius: 10px; border: 1px solid #000000" src="@Model.Image" height="420" width="280" alt="">
     <p></p>
     <a style="width: 145px" href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
@@ -77,8 +77,7 @@
 	</table>
 </div>
 
-
-<iframe width="900" height="506" src="@Model.Trailer" title="YouTube video player"
+<iframe width="900" height="506" style="margin: 0 auto; display: block; border-radius: 7px" src="@Model.Trailer" title="YouTube video player"
         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe>
 
