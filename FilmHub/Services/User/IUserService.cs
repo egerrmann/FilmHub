@@ -18,5 +18,7 @@ namespace FilmHub.Services.User
         public List<Database.User.User> SimilarUsers(int currentUserId);
         public Database.User.User FindByEmail(string userEmail);
         bool IsExpert(int currentUserId);
+        public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat);
+        static string ErrorMessage;
     }
 }

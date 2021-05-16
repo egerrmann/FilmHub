@@ -6,5 +6,6 @@
         public UserDbModel User { get; set; }
         public FilmDbModel Film { get; set; }
         public string Text { get; set; }
+        public string Time { get; set; }
     }
 }

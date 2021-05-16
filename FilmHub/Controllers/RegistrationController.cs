@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace FilmHub.Controllers
         
 
         [HttpGet]
-        public IActionResult LogIn(string name, string password)
+        public IActionResult LogIn(string email, string password)
         {
             var count = _userService.Count();
             if (count == 0)
@@ -67,7 +68,7 @@ namespace FilmHub.Controllers
 
             var logInModel = new UserViewModel()
             {
-                Name = name,
+                Email = email,
                 Password = password
             };
             return View(logInModel);

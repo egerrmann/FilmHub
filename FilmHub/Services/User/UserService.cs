@@ -72,5 +72,12 @@ namespace FilmHub.Services.User
         {
             return _userRepository.IsExpert(currentUserId);
         }
+
+        public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat)
+        {
+            return _userRepository.ChangedPasswordIsCorrect(id, oldPassword, newPassword,  newPasswordRepeat);
+        }
+
+        static string ErrorMessage;
     }
 }

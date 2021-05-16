@@ -1,4 +1,5 @@
-﻿using Database.DbModels;
+﻿using System;
+using Database.DbModels;
 
 namespace Database.Film
 {
@@ -8,5 +9,6 @@ namespace Database.Film
         public UserDbModel User { get; set; }
         public FilmDbModel Film { get; set; }
         public string Text { get; set; }
+        public string Time { get; set; }
     }
 }
