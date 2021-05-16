@@ -29,7 +29,22 @@ namespace FilmHub.Controllers
                 return RedirectToAction("LogIn", "Registration");
             }
             int hour = DateTime.Now.Hour;
-            ViewBag.Greeting = hour < 12 ? "Good morning" : "Good afternoon";
+            if (hour >= 0 && hour < 4 )
+            {
+                ViewBag.Greeting = "Good night";
+            }
+            if (hour >= 4 && hour < 12 )
+            {
+                ViewBag.Greeting = "Good morning";
+            }
+            if (hour >= 12 && hour < 17 )
+            {
+                ViewBag.Greeting = "Good afternoon";
+            }
+            if (hour >= 17 && hour <= 23 )
+            {
+                ViewBag.Greeting = "Good evening";
+            }
             User user = new User();
             user = _userService.FindById(IRegistrationService.currentUserId);
             ViewBag.RecommendedFilmsDirector = _userService.RecommendedFilmsDirector(IRegistrationService.currentUserId);
@@ -53,14 +68,45 @@ namespace FilmHub.Controllers
                 Password = currentUser.Password,
                 Favourite = currentUser.Favourite
             };
+
+            if (IUserService.ErrorMessage != null)
+            {
+                ViewBag.errorMessage = IUserService.ErrorMessage;   
+            }
             return View(userViewModel);
         }
 
         [HttpPost]
-        public IActionResult ChangeUserPassword(UserViewModel model)
+        public IActionResult ChangeUserPassword(string oldPassword, string newPassword, string newPasswordRepeat)
         {
-            _userService.ChangeUserPassword(IRegistrationService.currentUserId, model.Password);
-            return RedirectToAction("ShowPersonalPage", "User");
+            if (_userService.ChangedPasswordIsCorrect(IRegistrationService.currentUserId,
+                oldPassword, newPassword, newPasswordRepeat) == 1)
+            {
+                _userService.ChangeUserPassword(IRegistrationService.currentUserId, newPassword);
+                return RedirectToAction("ShowPersonalPage", "User");    
+            }
+
+            if (_userService.ChangedPasswordIsCorrect(IRegistrationService.currentUserId,
+                oldPassword, newPassword, newPasswordRepeat) == 2)
+            {
+                IUserService.ErrorMessage = "An old and new password are the same";
+            }
+            if (_userService.ChangedPasswordIsCorrect(IRegistrationService.currentUserId,
+                oldPassword, newPassword, newPasswordRepeat) == 3)
+            {
+                IUserService.ErrorMessage = "You didn't repeat your new password";
+            }
+            if (_userService.ChangedPasswordIsCorrect(IRegistrationService.currentUserId,
+                oldPassword, newPassword, newPasswordRepeat) == 4)
+            {
+                IUserService.ErrorMessage = "The length should be at least 8 symbols";
+            }
+            if (_userService.ChangedPasswordIsCorrect(IRegistrationService.currentUserId,
+                oldPassword, newPassword, newPasswordRepeat) == 5)
+            {
+                IUserService.ErrorMessage = "New password should contain at least one digit";
+            }
+            return RedirectToAction("ChangeUserPassword", "User");
         }
         
         [HttpPost]

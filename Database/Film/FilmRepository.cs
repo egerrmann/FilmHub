@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Database.DbModels;
 using Database.User;
@@ -184,7 +185,8 @@ namespace Database.Film
             {
                 User = currentUser,
                 Film = currentFilm,
-                Text = comment
+                Text = comment,
+                Time = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToShortTimeString()}"
             };
             _dbContext.Comments.Add(newComment);
             _dbContext.SaveChanges();
@@ -198,7 +200,8 @@ namespace Database.Film
             {
                 User = c.User,
                 Film = c.Film,
-                Text = c.Text
+                Text = c.Text,
+                Time = c.Time
             }).ToList();
             return comments;
         }

@@ -43,7 +43,7 @@ namespace Database.User
         {
             foreach (var user in _dbContext.FilmHubUsers)
             {
-                if (logInModel.Name == user.Name && logInModel.Password == user.Password)
+                if (logInModel.Email == user.Email && logInModel.Password == user.Password)
                 {
                     return true;
                 }
@@ -55,7 +55,7 @@ namespace Database.User
         {
             foreach (var user in _dbContext.FilmHubUsers)
             {
-                if (curr_user.Name == user.Name && curr_user.Password == user.Password)
+                if (curr_user.Email == user.Email && curr_user.Password == user.Password)
                 {
                     return user.Id;
                 }
@@ -188,6 +188,35 @@ namespace Database.User
             UserDbModel currentUser = _dbContext.FilmHubUsers.Find(id);
             currentUser.Password = newPassword;
             _dbContext.SaveChanges();
+        }
+
+        public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat)
+        {
+            UserDbModel currentUser = _dbContext.FilmHubUsers.Find(id);
+            for (int i = 0; i < newPassword.Length; i++)
+            {
+                if (Char.IsDigit(newPassword[i]))
+                {
+                    if (newPassword.Length >= 8)
+                    {
+                        if (newPassword == newPasswordRepeat)
+                        {
+                            if (newPassword != oldPassword )
+                            {
+                                if (currentUser.Password == oldPassword)
+                                {
+                                    return 1;
+                                }
+                            }
+                            return 2;    
+                        }
+                        return 3;
+                    }
+                    return 4;
+                }   
+            }
+            
+            return 5;
         }
 
         public List<User> SimilarUsers(int currentUserId)

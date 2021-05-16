@@ -14,6 +14,7 @@ namespace Database.User
         List<Film.Film> RecommendedFilmsDirector(int id);
         List<Film.Film> RecommendedFilmsGenre(int id);
         void ChangeUserPassword(int id, string newPassword);
+        int ChangedPasswordIsCorrect (int id, string oldPassword, string newPassword, string newPasswordRepeat);
         List<User> SimilarUsers(int currentUserId);
         User FindByEmail(string userEmail);
         bool IsExpert(int currentUserId);
