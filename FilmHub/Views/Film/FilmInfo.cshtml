@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" type="text/css" href="~/css/Comments.css"/>
 
-<h2 style="margin-top: 6%; margin-bottom: 5%">@Model.Title</h2>
+<h2 style="margin-top: 6%; margin-bottom: 3%">@Model.Title</h2>
 <div id="sidebar" style="margin-bottom: 25px">
     <img style="border-radius: 10px; border: 1px solid #000000" src="@Model.Image" height="420" width="280" alt="">
     <p></p>
@@ -77,10 +77,12 @@
 	</table>
 </div>
 
-<iframe width="900" height="506" style="margin: 0 auto; display: block; border-radius: 7px" src="@Model.Trailer" title="YouTube video player"
-        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-
+<div style="margin-top: 50px">
+	<h2 align="center" style="margin-bottom: 20px">Trailer</h2>
+	<iframe width="711" height="400" style="margin: 0 auto; display: block; border-radius: 7px" src="@Model.Trailer" title="YouTube video player"
+	        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+	        allowfullscreen></iframe>
+</div>
 
 <!-- Comments -->
 
