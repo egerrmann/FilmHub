@@ -22,9 +22,12 @@ namespace Database.User
         {
             var dbModel = new UserDbModel()
             {
-                Name = model.Name,
+                FirstName = model.FirstName,
                 Email = model.Email,
                 Password = model.Password,
+                LastName = model.LastName,
+                Country = model.Country,
+                DateOfBirth = model.DateOfBirth,
                 Favourite = new List<FilmDbModel>(),
                 Bookmarks = new List<FilmDbModel>()
             };
@@ -73,8 +76,11 @@ namespace Database.User
             var u = new User
             {
                 Email = user.Email, 
-                Name = user.Name, 
+                FirstName = user.FirstName, 
                 Password = user.Password,
+                LastName = user.LastName,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
                 Favourite = user.Favourite.Select(f => new Film.Film()
                 {
                     Title = f.Title,
@@ -246,8 +252,11 @@ namespace Database.User
                         User similarUser = new User
                         {
                             Email = anotherUser.Email,
-                            Name = anotherUser.Name,
+                            FirstName = anotherUser.FirstName,
                             Password = anotherUser.Password,
+                            LastName = anotherUser.LastName,
+                            Country = anotherUser.Country,
+                            DateOfBirth = anotherUser.DateOfBirth,
                             Favourite = anotherUser.Favourite.Select(f => new Film.Film()
                             {
                                 Title = f.Title,
@@ -298,8 +307,11 @@ namespace Database.User
             var u = new User
             {
                 Email = user.Email, 
-                Name = user.Name, 
+                FirstName = user.FirstName, 
                 Password = user.Password,
+                LastName = user.LastName,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
                 Favourite = user.Favourite.Select(f => new Film.Film()
                 {
                     Title = f.Title,

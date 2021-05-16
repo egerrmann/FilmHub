@@ -1,11 +1,11 @@
 ﻿@model UserViewModel
 
 @{
-    ViewBag.Title = @Model.Name;
+    ViewBag.Title = @Model.FirstName;
     Layout = "_Layout";
 }
 
-<h2 align="center">@Model.Name</h2>
+<h2 align="center">@Model.FirstName</h2>
 @*<table class="table table-striped table-hover">
 	<tbody>
 	<tr>
@@ -49,7 +49,7 @@
 	</tbody>
 </table>*@
 
-<h4>@Model.Name favourites</h4>
+<h4>@Model.FirstName favourites</h4>
 @foreach (var film in @Model.Favourite)
 {
     <p><a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a></p>
