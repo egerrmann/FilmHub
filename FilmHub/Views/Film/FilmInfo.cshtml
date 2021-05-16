@@ -96,7 +96,7 @@
 					<div class="d-flex flex-row"> <img src="~/favicon.png" height="40" width="40" class="rounded-circle" style="margin-right: 10px">
 						<div class="d-flex flex-column ms-2">
 							<h6 class="mb-1 text-primary"><a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = comment.User.Email})'>
-        @comment.User.Name</a></h6>
+        @comment.User.FirstName @comment.User.LastName</a></h6>
 							<p class="comment-text" style="font-size: 14px">@comment.Text</p>
 						</div>
 					</div>

@@ -64,8 +64,11 @@ namespace FilmHub.Controllers
             var userViewModel = new UserViewModel
             {
                 Email = currentUser.Email,
-                Name = currentUser.Name,
+                FirstName = currentUser.FirstName,
                 Password = currentUser.Password,
+                LastName = currentUser.LastName,
+                Country = currentUser.Country,
+                DateOfBirth = currentUser.DateOfBirth,
                 Favourite = currentUser.Favourite
             };
 
@@ -76,6 +79,12 @@ namespace FilmHub.Controllers
             return View(userViewModel);
         }
 
+        /*[HttpGet]
+        public IActionResult EditProfile()
+        {
+            
+        }*/
+        
         [HttpPost]
         public IActionResult ChangeUserPassword(string oldPassword, string newPassword, string newPasswordRepeat)
         {
@@ -135,7 +144,8 @@ namespace FilmHub.Controllers
             User anotherUser = _userService.FindByEmail(anotherUserEmail);
             UserViewModel anotherUserViewModel = new UserViewModel
             {
-                Name = anotherUser.Name,
+                FirstName = anotherUser.FirstName,
+                LastName = anotherUser.LastName,
                 Favourite = anotherUser.Favourite
             };
             return View(anotherUserViewModel);
