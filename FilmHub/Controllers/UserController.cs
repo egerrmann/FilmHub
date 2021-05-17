@@ -146,7 +146,10 @@ namespace FilmHub.Controllers
             {
                 FirstName = anotherUser.FirstName,
                 LastName = anotherUser.LastName,
-                Favourite = anotherUser.Favourite
+                Favourite = anotherUser.Favourite,
+                Country = anotherUser.Country,
+                Email = anotherUser.Email,
+                DateOfBirth = anotherUser.DateOfBirth
             };
             return View(anotherUserViewModel);
         }
