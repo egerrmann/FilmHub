@@ -216,5 +216,52 @@ namespace Database.Film
             currentUser.Bookmarks.Add(currentFilm);
             _dbContext.SaveChanges();
         }
+        
+        
+        public User.User FindById(int id)
+        {
+            UserDbModel user = _dbContext.FilmHubUsers.Include(u => u.Favourite)
+                .Include(u => u.Comments)
+                .Include(u => u.Bookmarks)
+                .FirstOrDefault(u => u.Id == id);
+            var u = new User.User
+            {
+                Email = user.Email, 
+                FirstName = user.FirstName, 
+                Password = user.Password,
+                LastName = user.LastName,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
+                Favourite = user.Favourite.Select(f => new Database.Film.Film()
+                {
+                    Title = f.Title,
+                    Year = f.Year,
+                    Genre = f.Genre,
+                    Director = f.Director,
+                    Summary = f.Summary,
+                    Time = f.Time,
+                    Age = f.Age,
+                    Country = f.Country,
+                    Actors = f.Actors,
+                    Image = f.Image,
+                    Trailer = f.Trailer
+                }).ToList(),
+                Bookmarks = user.Bookmarks.Select(f => new Database.Film.Film()
+                {
+                    Title = f.Title,
+                    Year = f.Year,
+                    Genre = f.Genre,
+                    Director = f.Director,
+                    Summary = f.Summary,
+                    Time = f.Time,
+                    Age = f.Age,
+                    Country = f.Country,
+                    Actors = f.Actors,
+                    Image = f.Image,
+                    Trailer = f.Trailer
+                }).ToList()
+            }; 
+            return u;
+        }
     }
 }

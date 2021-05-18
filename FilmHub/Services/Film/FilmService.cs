@@ -76,5 +76,10 @@ namespace FilmHub.Services.Film
         {
             _filmRepository.AddToBookmarks(filmId, userId);
         }
+
+        public Database.User.User FindById(int currentUserId)
+        {
+            return _filmRepository.FindById(currentUserId);
+        }
     }
 }

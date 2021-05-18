@@ -53,6 +53,13 @@ namespace FilmHub.Services.User
             return _userRepository.RecommendedFilmsGenre(id);
         }
 
+        public void EditProfile(string firstName, string lastName, string email, string dateOfBirth,
+            string country, Database.User.User currentUser)
+        {
+            _userRepository.EditProfile(firstName, lastName, email, dateOfBirth, country,
+                currentUser);
+        }
+
         public void ChangeUserPassword(int id, string newPassword)
         {
             _userRepository.ChangeUserPassword(id, newPassword);

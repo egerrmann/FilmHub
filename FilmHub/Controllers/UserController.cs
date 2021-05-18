@@ -56,6 +56,31 @@ namespace FilmHub.Controllers
             }
             return View(user);
         }
+        
+        [HttpPost]
+        public IActionResult ShowPersonalPage()
+        {
+            IRegistrationService.isLogged = false;
+            IRegistrationService.currentUserId = 0;
+            return RedirectToAction("LogIn", "Registration");
+        }
+
+        [HttpGet]
+        public IActionResult EditProfile(string currentUserEmail)
+        {
+            User currentUser = _userService.FindByEmail(currentUserEmail);
+            return View(currentUser);
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(string firstName, string lastName, string email, string dateOfBirth,
+            string country)
+        {
+            User currentUser = _userService.FindById(IRegistrationService.currentUserId);
+            _userService.EditProfile(firstName, lastName, email, dateOfBirth, country,
+                currentUser);
+            return RedirectToAction("ShowPersonalPage", "User");
+        }
 
         [HttpGet]
         public IActionResult ChangeUserPassword()
@@ -79,12 +104,6 @@ namespace FilmHub.Controllers
             return View(userViewModel);
         }
 
-        /*[HttpGet]
-        public IActionResult EditProfile()
-        {
-            
-        }*/
-        
         [HttpPost]
         public IActionResult ChangeUserPassword(string oldPassword, string newPassword, string newPasswordRepeat)
         {
@@ -116,14 +135,6 @@ namespace FilmHub.Controllers
                 IUserService.ErrorMessage = "New password should contain at least one digit";
             }
             return RedirectToAction("ChangeUserPassword", "User");
-        }
-        
-        [HttpPost]
-        public IActionResult ShowPersonalPage()
-        {
-            IRegistrationService.isLogged = false;
-            IRegistrationService.currentUserId = 0;
-            return RedirectToAction("LogIn", "Registration");
         }
 
         [HttpGet]

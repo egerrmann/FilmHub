@@ -13,6 +13,8 @@ namespace Database.User
         void AddToFavourite(string image, int id);
         List<Film.Film> RecommendedFilmsDirector(int id);
         List<Film.Film> RecommendedFilmsGenre(int id);
+        void EditProfile(string firstName, string lastName, string email, string dateOfBirth,
+            string country, User currentUser);
         void ChangeUserPassword(int id, string newPassword);
         int ChangedPasswordIsCorrect (int id, string oldPassword, string newPassword, string newPasswordRepeat);
         List<User> SimilarUsers(int currentUserId);
