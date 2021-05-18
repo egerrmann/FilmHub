@@ -79,9 +79,20 @@
 
 <div style="margin-top: 50px">
 	<h2 align="center" style="margin-bottom: 20px">Trailer</h2>
-	<iframe width="711" height="400" style="margin: 0 auto; display: block; border-radius: 7px" src="@Model.Trailer" title="YouTube video player"
-	        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-	        allowfullscreen></iframe>
+	@if (ViewBag.unregisteredUser != "true" && DateTime.Now.Year - ViewBag.currentUserYearOfBirth >= Model.Age)
+	{
+		<iframe width="711" height="400" style="margin: 0 auto; display: block; border-radius: 7px" src="@Model.Trailer" title="YouTube video player"
+		        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		        allowfullscreen></iframe>
+	}
+	@if (ViewBag.unregisteredUser == "true")
+	{
+		<h3>First you need to <a href='@Url.Action("LogIn", "Registration")'>log into</a> your account</h3>
+	}
+	@if (DateTime.Now.Year - ViewBag.currentUserYearOfBirth < Model.Age)
+	{
+		<h3>Sorry, but you are too young for such films...</h3>
+	}
 </div>
 
 <!-- Comments -->

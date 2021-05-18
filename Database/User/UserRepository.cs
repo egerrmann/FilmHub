@@ -189,6 +189,19 @@ namespace Database.User
             return recommendedFilmsGenre;
         }
 
+        public void EditProfile(string firstName, string lastName, string email, string dateOfBirth,
+            string country, User currentUser)
+        {
+            int currentUserId = CurrentUser_Id(currentUser);
+            UserDbModel user = _dbContext.FilmHubUsers.Find(currentUserId);
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Email = email;
+            user.DateOfBirth = dateOfBirth;
+            user.Country = country;
+            _dbContext.SaveChanges();
+        }
+
         public void ChangeUserPassword(int id, string newPassword)
         {
             UserDbModel currentUser = _dbContext.FilmHubUsers.Find(id);

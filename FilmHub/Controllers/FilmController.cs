@@ -17,12 +17,11 @@ namespace FilmHub.Controllers
     public class FilmController : Controller
     {
         private readonly IFilmService _filmService;
-
         public FilmController(IFilmService filmService)
         {
             _filmService = filmService;
         }
-        
+
         [HttpGet]
         public IActionResult AllFilms(string sort)
         {
@@ -77,6 +76,18 @@ namespace FilmHub.Controllers
         [HttpGet]
         public IActionResult FilmInfo()
         {
+            if (IRegistrationService.currentUserId == 0)
+            {
+                ViewBag.unregisteredUser = "true";
+            }
+            else
+            {
+                User currentUser = _filmService.FindById(IRegistrationService.currentUserId);
+                int currentUserYears = (currentUser.DateOfBirth[0] - 48) * 1000 +
+                                          (currentUser.DateOfBirth[1] - 48) * 100 +
+                                          (currentUser.DateOfBirth[2] - 48) * 10 + (currentUser.DateOfBirth[3] - 48); 
+                ViewBag.currentUserYearOfBirth = currentUserYears;
+            }
             Film currentFilm = _filmService.GetCurrentFilmInfo(IFilmService.currentFilmId);
             ViewBag.lastElement = currentFilm.Actors.Last();
             return View(currentFilm);
