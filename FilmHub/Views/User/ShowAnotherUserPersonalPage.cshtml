@@ -5,11 +5,17 @@
     Layout = "_Layout";
 }
 
-<h2 align="center" style="margin-bottom: 30px">@Model.FirstName's page</h2>
+<h2 align="center" style="margin-bottom: 50px; margin-top: 60px">@Model.FirstName's page</h2>
 <form>
   <div class="row gutters-sm">
     <div style="margin-bottom: 5px" class="text-center avatar avatar-xl col-md-4">
-      <img style="width: 270px; margin-top: 3%; align-content: center" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" /></div>
+      <img style="width: 235px; align-content: center" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
+      <div style="margin-top: 20px">
+      <a style="width: 145px; margin-top:20px" target="_blank" href="mailto:@Model.Email">
+        <button style="width: 145px" type="button" class="btn btn-primary">Send an email</button>
+      </a>
+      </div>
+      </div>
     <div class="col-md-8">
       <div class="card mb-3">
         <div class="card-body">
