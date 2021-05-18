@@ -1,55 +1,75 @@
 ﻿@model UserViewModel
 
 @{
-    ViewBag.Title = @Model.FirstName;
+	ViewBag.Title = @Model.FirstName + "'s page";
     Layout = "_Layout";
 }
 
-<h2 align="center">@Model.FirstName</h2>
-@*<table class="table table-striped table-hover">
-	<tbody>
-	<tr>
-		<th scope="row">Title</th>
-		<td>@Model.Email</td>
-	</tr>
-	<tr>
-		<th scope="row">Year</th>
-		<td>@Model.</td>
-	</tr>
-	<tr>
-		<th scope="row">Genre</th>
-		<td>@Model.Genre</td>
-	</tr>
-	<tr>
-		<th scope="row">Director</th>
-		<td>@Model.Director</td>
-	</tr>
-	<tr>
-		<th scope="row">Summary</th>
-		<td>@Model.Summary</td>
-	</tr>
-	<tr>
-		<th scope="row">Time</th>
-		<td>@Model.Time</td>
-	</tr>
-	<tr>
-		<th scope="row">Age</th>
-		<td>@Model.Age+</td>
-	</tr>
-	<tr>
-		<th scope="row">Country</th>
-		<td>@Model.Country</td>
-	</tr>
-	<tr>
-		<th scope="row">Actors</th>
-		<td>
-			@string.Join(", ", Model.Actors)
-		</td>
-	</tr>
-	</tbody>
-</table>*@
+<h2 align="center" style="margin-bottom: 50px; margin-top: 60px">@Model.FirstName's page</h2>
+<form>
+  <div class="row gutters-sm">
+    <div style="margin-bottom: 5px" class="text-center avatar avatar-xl col-md-4">
+      <img style="width: 235px; align-content: center" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
+      <div style="margin-top: 20px">
+      <a style="width: 145px; margin-top:20px" target="_blank" href="mailto:@Model.Email">
+        <button style="width: 145px" type="button" class="btn btn-primary">Send an email</button>
+      </a>
+      </div>
+      </div>
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">First name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              @Model.FirstName
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Last name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              @Model.LastName
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              @Model.Email
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Country</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              @Model.Country
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Date of birth</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              @Model.DateOfBirth
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>	
 
-<h4>@Model.FirstName favourites</h4>
+<h4>@Model.FirstName's favourites</h4>
 @foreach (var film in @Model.Favourite)
 {
     <p><a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a></p>
