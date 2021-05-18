@@ -22,9 +22,12 @@ namespace Database.User
         {
             var dbModel = new UserDbModel()
             {
-                Name = model.Name,
+                FirstName = model.FirstName,
                 Email = model.Email,
                 Password = model.Password,
+                LastName = model.LastName,
+                Country = model.Country,
+                DateOfBirth = model.DateOfBirth,
                 Favourite = new List<FilmDbModel>(),
                 Bookmarks = new List<FilmDbModel>()
             };
@@ -43,7 +46,7 @@ namespace Database.User
         {
             foreach (var user in _dbContext.FilmHubUsers)
             {
-                if (logInModel.Name == user.Name && logInModel.Password == user.Password)
+                if (logInModel.Email == user.Email && logInModel.Password == user.Password)
                 {
                     return true;
                 }
@@ -55,7 +58,7 @@ namespace Database.User
         {
             foreach (var user in _dbContext.FilmHubUsers)
             {
-                if (curr_user.Name == user.Name && curr_user.Password == user.Password)
+                if (curr_user.Email == user.Email && curr_user.Password == user.Password)
                 {
                     return user.Id;
                 }
@@ -73,8 +76,11 @@ namespace Database.User
             var u = new User
             {
                 Email = user.Email, 
-                Name = user.Name, 
+                FirstName = user.FirstName, 
                 Password = user.Password,
+                LastName = user.LastName,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
                 Favourite = user.Favourite.Select(f => new Film.Film()
                 {
                     Title = f.Title,
@@ -183,11 +189,53 @@ namespace Database.User
             return recommendedFilmsGenre;
         }
 
+        public void EditProfile(string firstName, string lastName, string email, string dateOfBirth,
+            string country, User currentUser)
+        {
+            int currentUserId = CurrentUser_Id(currentUser);
+            UserDbModel user = _dbContext.FilmHubUsers.Find(currentUserId);
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Email = email;
+            user.DateOfBirth = dateOfBirth;
+            user.Country = country;
+            _dbContext.SaveChanges();
+        }
+
         public void ChangeUserPassword(int id, string newPassword)
         {
             UserDbModel currentUser = _dbContext.FilmHubUsers.Find(id);
             currentUser.Password = newPassword;
             _dbContext.SaveChanges();
+        }
+
+        public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat)
+        {
+            UserDbModel currentUser = _dbContext.FilmHubUsers.Find(id);
+            for (int i = 0; i < newPassword.Length; i++)
+            {
+                if (Char.IsDigit(newPassword[i]))
+                {
+                    if (newPassword.Length >= 8)
+                    {
+                        if (newPassword == newPasswordRepeat)
+                        {
+                            if (newPassword != oldPassword )
+                            {
+                                if (currentUser.Password == oldPassword)
+                                {
+                                    return 1;
+                                }
+                            }
+                            return 2;    
+                        }
+                        return 3;
+                    }
+                    return 4;
+                }   
+            }
+            
+            return 5;
         }
 
         public List<User> SimilarUsers(int currentUserId)
@@ -217,8 +265,11 @@ namespace Database.User
                         User similarUser = new User
                         {
                             Email = anotherUser.Email,
-                            Name = anotherUser.Name,
+                            FirstName = anotherUser.FirstName,
                             Password = anotherUser.Password,
+                            LastName = anotherUser.LastName,
+                            Country = anotherUser.Country,
+                            DateOfBirth = anotherUser.DateOfBirth,
                             Favourite = anotherUser.Favourite.Select(f => new Film.Film()
                             {
                                 Title = f.Title,
@@ -269,8 +320,11 @@ namespace Database.User
             var u = new User
             {
                 Email = user.Email, 
-                Name = user.Name, 
+                FirstName = user.FirstName, 
                 Password = user.Password,
+                LastName = user.LastName,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
                 Favourite = user.Favourite.Select(f => new Film.Film()
                 {
                     Title = f.Title,

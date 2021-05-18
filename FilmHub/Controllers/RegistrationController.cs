@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Linq;
@@ -26,13 +27,16 @@ namespace FilmHub.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string email, string password, string name)
+        public IActionResult Index(string email, string password, string firstName, string lastName, string country, string dateOfBirth)
         {
             var model = new UserViewModel()
             {
                 Email = email,
                 Password = password,
-                Name = name,
+                FirstName = firstName,
+                LastName = lastName,
+                Country = country,
+                DateOfBirth = dateOfBirth,
                 Favourite = new List<Film>()
             };
             return View(model);
@@ -44,9 +48,12 @@ namespace FilmHub.Controllers
         {
             var newUser = new User()
             {
-                Name = model.Name,
+                FirstName = model.FirstName,
                 Email = model.Email,
                 Password = model.Password,
+                LastName = model.LastName,
+                Country = model.Country,
+                DateOfBirth = model.DateOfBirth,
                 Favourite = new List<Film>()
             };
             var userId = _userService.Add(newUser);
@@ -57,7 +64,7 @@ namespace FilmHub.Controllers
         
 
         [HttpGet]
-        public IActionResult LogIn(string name, string password)
+        public IActionResult LogIn(string email, string password)
         {
             var count = _userService.Count();
             if (count == 0)
@@ -67,7 +74,7 @@ namespace FilmHub.Controllers
 
             var logInModel = new UserViewModel()
             {
-                Name = name,
+                Email = email,
                 Password = password
             };
             return View(logInModel);
@@ -78,9 +85,8 @@ namespace FilmHub.Controllers
         {
             var currUser = new User()
             {
-                Name = logInModel.Name,
                 Email = logInModel.Email,
-                Password = logInModel.Password
+                Password = logInModel.Password,
             };
             bool correct = _userService.Find(currUser);
             if (correct)

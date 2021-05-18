@@ -14,9 +14,13 @@ namespace FilmHub.Services.User
         void AddToFavourite(string image, int id);
         public List<Database.Film.Film> RecommendedFilmsDirector(int id);
         public List<Database.Film.Film> RecommendedFilmsGenre(int id);
+        void EditProfile(string firstName, string lastName, string email, string dateOfBirth,
+            string country, Database.User.User currentUser);
         public void ChangeUserPassword(int id, string newPassword);
         public List<Database.User.User> SimilarUsers(int currentUserId);
         public Database.User.User FindByEmail(string userEmail);
         bool IsExpert(int currentUserId);
+        public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat);
+        static string ErrorMessage;
     }
 }

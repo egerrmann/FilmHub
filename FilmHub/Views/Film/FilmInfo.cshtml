@@ -21,8 +21,8 @@
 
 <link rel="stylesheet" type="text/css" href="~/css/Comments.css"/>
 
-<h2 style="margin-top: 6%; margin-bottom: 5%">@Model.Title</h2>
-<div id="sidebar">
+<h2 style="margin-top: 6%; margin-bottom: 3%">@Model.Title</h2>
+<div id="sidebar" style="margin-bottom: 25px">
     <img style="border-radius: 10px; border: 1px solid #000000" src="@Model.Image" height="420" width="280" alt="">
     <p></p>
     <a style="width: 145px" href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
@@ -77,15 +77,23 @@
 	</table>
 </div>
 
-<a href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
-    <button type="submit" class="btn btn-primary">Add to bookmarks</button>
-</a>
-
-
-<iframe width="900" height="506" src="@Model.Trailer" title="YouTube video player"
-        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-
+<div style="margin-top: 50px">
+	<h2 align="center" style="margin-bottom: 20px">Trailer</h2>
+	@if (ViewBag.unregisteredUser != "true" && DateTime.Now.Year - ViewBag.currentUserYearOfBirth >= Model.Age)
+	{
+		<iframe width="711" height="400" style="margin: 0 auto; display: block; border-radius: 7px" src="@Model.Trailer" title="YouTube video player"
+		        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		        allowfullscreen></iframe>
+	}
+	@if (ViewBag.unregisteredUser == "true")
+	{
+		<h3>First you need to <a href='@Url.Action("LogIn", "Registration")'>log into</a> your account</h3>
+	}
+	@if (DateTime.Now.Year - ViewBag.currentUserYearOfBirth < Model.Age)
+	{
+		<h3>Sorry, but you are too young for such films...</h3>
+	}
+</div>
 
 <!-- Comments -->
 
@@ -93,7 +101,7 @@
 	<div class="row d-flex justify-content-center" style="width: 100%; margin-top: 3%">
 		<div class="col-md-8">
 			<div class="text-left">
-				<h6>All comments(5)</h6>
+				<h6>All comments(@Model.Comments.Count)</h6>
 			</div>
 			@foreach (var comment in Model.Comments)
 			{
@@ -101,16 +109,16 @@
 					<div class="d-flex flex-row"> <img src="~/favicon.png" height="40" width="40" class="rounded-circle" style="margin-right: 10px">
 						<div class="d-flex flex-column ms-2">
 							<h6 class="mb-1 text-primary"><a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = comment.User.Email})'>
-        @comment.User.Name</a></h6>
+        @comment.User.FirstName @comment.User.LastName</a></h6>
 							<p class="comment-text" style="font-size: 14px">@comment.Text</p>
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<div class="d-flex flex-row gap-3 align-items-center">
-							<div class="d-flex align-items-center"> <i class="fa fa-heart-o"></i> <span class="ms-1 fs-10">Like</span> </div>
+							<div class="d-flex align-items-center"> <i class="fa fa-heart-o"></i> <span class="ms-1 fs-10">Like</span></div>
 							<div class="d-flex align-items-center"> <i class="fa fa-comment-o"></i> <span class="ms-1 fs-10">Comments</span> </div>
 						</div>
-						<div class="d-flex flex-row"> <span class="text-muted fw-normal fs-10">May 22,2020 12:10 PM</span> </div>
+						<div class="d-flex flex-row"> <span class="text-muted fw-normal fs-10">@comment.Time</span> </div>
 					</div>
 				</div>
 			}
