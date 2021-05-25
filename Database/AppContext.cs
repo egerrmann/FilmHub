@@ -28,7 +28,7 @@ namespace Database
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=9248;Database=Filmhub;Username=postgres;Password=a1g23_ul4");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Filmhub;Username=postgres;Password=yatsko3908101");
         }
     }
 }

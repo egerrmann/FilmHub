@@ -1,76 +1,78 @@
 ﻿@model UserViewModel
 
 @{
-	ViewBag.Title = @Model.FirstName + "'s page";
+    ViewBag.Title = @Model.FirstName + "'s page";
     Layout = "_Layout";
 }
 
 <h2 align="center" style="margin-bottom: 50px; margin-top: 60px">@Model.FirstName's page</h2>
 <form>
-  <div class="row gutters-sm">
-    <div style="margin-bottom: 5px" class="text-center avatar avatar-xl col-md-4">
-      <img style="width: 235px; align-content: center" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
-      <div style="margin-top: 20px">
-      <a style="width: 145px; margin-top:20px" target="_blank" href="mailto:@Model.Email">
-        <button style="width: 145px" type="button" class="btn btn-primary">Send an email</button>
-      </a>
-      </div>
-      </div>
-    <div class="col-md-8">
-      <div class="card mb-3">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">First name</h6>
+    <div class="row gutters-sm">
+        <div style="margin-bottom: 5px" class="text-center avatar avatar-xl col-md-4">
+            <img style="width: 235px; align-content: center" src="~/images/merilian.png" alt="..." class="avatar-img rounded-circle"/>
+            <div style="margin-top: 20px">
+                <a style="width: 145px; margin-top:20px" target="_blank" href="mailto:@Model.Email">
+                    <button style="width: 145px" type="button" class="btn btn-primary">Send an email</button>
+                </a>
             </div>
-            <div class="col-sm-9 text-secondary">
-              @Model.FirstName
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Last name</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              @Model.LastName
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Email</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              @Model.Email
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Country</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              @Model.Country
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Date of birth</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              @Model.DateOfBirth
-            </div>
-          </div>
         </div>
-      </div>
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">First name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.FirstName
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Last name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.LastName
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.Email
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Country</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.Country
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Date of birth</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.DateOfBirth
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</form>	
+</form>
 
-<h4>@Model.FirstName's favourites</h4>
+<h4 style="margin-top: 20px">@Model.FirstName's favourites</h4>
 @foreach (var film in @Model.Favourite)
 {
-    <p><a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a></p>
+    <p>
+        <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a>
+    </p>
 }

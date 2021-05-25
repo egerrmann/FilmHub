@@ -23,7 +23,7 @@
                 <div>
                     <div style="alignment: center; margin-bottom: 5px" class="text-center">
                         <div class="avatar avatar-xl">
-                            <img style="width: 200px; align-content: center" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
+                            <img style="width: 200px; align-content: center" src="~/images/merilian.png" alt="..." class="avatar-img rounded-circle" />
                         </div>
                     </div>
                     <div class="col" style="margin-bottom: 30px; margin-top: 15px">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group col-md-4" lang="en">
                         <label>Date of birth</label>
-                        <input type="text" class="form-control" name="dateOfBirth" value="@Model.DateOfBirth"/>
+                        <input type="date" class="form-control" name="dateOfBirth" value="@Model.DateOfBirth"/>
                     </div>
                     <div class="form-group col-md-4">
                         <label>Country</label>
@@ -312,12 +312,12 @@
                     </div>
                 </div>
             <div>
-	            <button style="float: right" type="submit" class="btn btn-primary">Confirm</button>
+	            <button style="float: right" type="submit" class="btn btn-primary">Confirm changes</button>
             </div>
 			</form>
 			<div>
 				<a href='@Url.Action("ShowPersonalPage", "User")'>
-					<button style="float: right"type="submit" class="btn btn-primary">Discard all changes</button>
+					<button type="submit" class="btn btn-danger">Discard changes</button>
 				</a>
 			</div>
         </div>

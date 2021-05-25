@@ -4,15 +4,50 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    ViewBag.container = " ";
 }
+
 <body>
-<link rel="stylesheet" type="text/css" href="~\css\HomeIndex.css"/>
-<div class="text-center">
-    <h1 class="display-4">Welcome to <img src="~/images/FilmHubBlack.png" style="margin-bottom: 5px" width="220px" alt="FilmHub logo"></h1>
-</div>
-@*<h3>New Films</h3>
+<div style="background: rgba(74,74,74,0.92)">
+    <link rel="stylesheet" type="text/css" href="~/css/HomeIndex.css"/>
+    <section id="homeImage" class="d-flex flex-column justify-content-center" style="margin-bottom: 10px">
+        <div class="container" style="margin-bottom: 60px">
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <h1 align="center" style="font-weight: 600; color: #ffffff" class="display-4">Welcome to <img src="~/images/FilmHub.png" style="margin-bottom: 5px" width="220px" alt="FilmHub logo"></h1>
+                    <h6 align="center" style="color: #fff"><a href="@Url.Action("LogIn", "Registration")">Log in</a> to get access to all the features of the site</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="feature-card row" style="height: 50%">
+        <div class="col-md-6">
+            <h3 align="center" style="color: #fff; margin-top: 20%">Huge films library for every taste</h3>
+        </div>
+        <div class="col-md-6">
+            <p style="text-align: center; margin-top: 20px"><img style="alignment: center; width: 80%; border-radius: 20px" src="~/images/FilmHub.png" alt="">There will be a screenshot from AllFilms</p>
+        </div>
+    </div>
+    <div class="feature-card row" style="height: 50%">
+        <div class="col-md-6">
+            <p style="text-align: center; margin-top: 20px"><img style="alignment: center; width: 80%; border-radius: 20px" src="~/images/Comments.png" alt=""></p>
+        </div>
+        <div class="col-md-6">
+            <h3 align="center" style="color: #fff; margin-top: 20%">You can leave comments for any film you want</h3>
+        </div>
+    </div>
+    <div class="feature-card row" style="height: 50%">
+        <div class="col-md-6">
+            <h3 align="center" style="color: #fff; margin-top: 20%">Perfect film rating system</h3>
+        </div>
+        <div class="col-md-6">
+            <p style="text-align: center; margin-top: 20px"><img style="alignment: center; width: 80%; border-radius: 20px" src="~/images/FilmHub.png" alt="">There will be a screenshot of Film rating</p>
+        </div>
+    </div>
+    @*<h3>New Films</h3>
 @foreach (var film in ViewBag.newFilms)
 {
     <p>@film.Title</p>
 }*@
+</div>
 </body>
