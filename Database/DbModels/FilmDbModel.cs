@@ -8,6 +8,7 @@ namespace Database.DbModels
         public int Id { get; set; }
         public List<UserDbModel> UsersWhoAddToFavouritesList { get; set; }
         public List<UserDbModel> UsersWhoAddToBookmarksList { get; set; }
+        public List<UserDbModel> UsersWhomAdvised { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
         public string Genre { get; set; }
@@ -20,5 +21,8 @@ namespace Database.DbModels
         public string Image { get; set; }
         public string Trailer { get; set; }
         public List<CommentDbModel> Comments { get; set; } 
+        public List<RatingDbModel> Ratings { get; set; }
+        public double Rating { get; set; }
+        
     }
 }

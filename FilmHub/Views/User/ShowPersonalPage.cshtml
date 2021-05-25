@@ -335,6 +335,14 @@
 
 
 
+<h4>Advised films</h4>
+<div>
+	@foreach (var advisedFilm in Model.AdvisedFilms)
+	{
+		<a href='@Url.Action("CurrentFilm", "Film", new {image = advisedFilm.Image})'><h6>@advisedFilm.Title</h6></a>
+	}
+</div>
+
 <h4>Your favourites</h4>
 <div>
     @foreach (var favouriteFilm in Model.Favourite)

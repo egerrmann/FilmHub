@@ -6,6 +6,7 @@ namespace FilmHub.Services.User
 {
     public interface IUserService
     {
+        List<Database.User.User> GetAllUsers();
         int Add(Database.User.User model);
         int Count();
         bool Find(Database.User.User logInModel);
@@ -21,6 +22,10 @@ namespace FilmHub.Services.User
         public Database.User.User FindByEmail(string userEmail);
         bool IsExpert(int currentUserId);
         public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat);
+        void AddToAdvised(int currentFilmId, int userIdToAdvise);
+        public void MakeAnExpert(int currentUserId);
+
         static string ErrorMessage;
+        
     }
 }

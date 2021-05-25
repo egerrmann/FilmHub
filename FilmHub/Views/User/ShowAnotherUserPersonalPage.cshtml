@@ -69,10 +69,26 @@
     </div>
 </form>
 
+<a style="width: 145px" href='@Url.Action("AddToAdvised", "User", new {currentFilmId=ViewBag.currentFilmId,userIdToAdvise=ViewBag.currentUserId})'>
+		<button style="width: 145px" type="submit" class="btn btn-primary">Advise</button>
+	</a>
+
+
 <h4 style="margin-top: 20px">@Model.FirstName's favourites</h4>
 @foreach (var film in @Model.Favourite)
 {
-    <p>
-        <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a>
-    </p>
+    <p><a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a></p>
+}
+
+<h4>@Model.FirstName's bookmarks</h4>
+@foreach (var film in @Model.Bookmarks)
+{
+    <p><a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>@film.Title</a></p>
+}
+
+<h4>@Model.FirstName's ratings</h4>
+@foreach (var rating in @Model.Ratings)
+{
+  <p><a href='@Url.Action("CurrentFilm", "Film", new {image = rating.Film.Image})'>@rating.Film.Title</a></p>
+  <p>@rating.GeneralImpression</p>
 }

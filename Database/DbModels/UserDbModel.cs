@@ -19,5 +19,12 @@ namespace Database.DbModels
         [InverseProperty("UsersWhoAddToBookmarksList")]
         public List<FilmDbModel> Bookmarks { get; set; }
         public List<CommentDbModel> Comments { get; set; }
-    }
+        public List<RatingDbModel> Ratings { get; set; }
+
+        public bool IsExpert { get; set; }
+        //[NotMapped]
+        [InverseProperty("UsersWhomAdvised")]
+        public List<FilmDbModel> AdvisedFilms { get; set; }
+
+        }
 }

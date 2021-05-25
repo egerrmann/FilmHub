@@ -5,6 +5,7 @@ namespace Database.Film
 {
     public class Film
     {
+        
         public string Title { get; set; }
         public int Year { get; set; }
         public string Genre { get; set; }
@@ -17,5 +18,7 @@ namespace Database.Film
         public string Image { get; set; }
         public string Trailer { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Rating> Ratings { get; set; }
+        public double Rating { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿@model Database.Film.Film
+﻿@using System.Net.Http
+@using System.IO
+@using System.Net
+@model Database.Film.Film
 
 @{
     ViewBag.Title = Model.Title;
@@ -17,21 +20,153 @@
         height: auto;
         margin-left: 31%;
     }
+    
 </style>
 
 <link rel="stylesheet" type="text/css" href="~/css/Comments.css"/>
-
+<link rel="stylesheet" type="text/css" href="~/css/Ratings.css">
 <h2 style="margin-top: 6%; margin-bottom: 3%">@Model.Title</h2>
+
+
 <div id="sidebar" style="margin-bottom: 25px">
-    <img style="border-radius: 10px; border: 1px solid #000000" src="@Model.Image" height="420" width="280" alt="">
-    <p></p>
-    <a style="width: 145px" href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
-        <button style="width: 145px" type="submit" class="btn btn-primary">Add to favourite</button>
-    </a>
-    <a style="width: 130px; float: right" href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
-        <button style="width: 130px" type="submit" class="btn btn-primary">Watch Later</button>
-    </a>
+	<img style="border-radius: 10px; border: 1px solid #000000" src="@Model.Image" height="420" width="280" alt="">
+  <p></p>
+  <a style="width: 145px" href='@Url.Action("AddToFavourite", "User", new {currentFilmImage = Model.Image})'>
+      <button style="width: 145px" type="submit" class="btn btn-primary">Add to favourite</button>
+  </a>
+  <a style="width: 130px; float: right" href='@Url.Action("AddToBookmarks", "Film", new {filmImage = Model.Image})'>
+      <button style="width: 130px" type="submit" class="btn btn-primary">Watch Later</button>
+  </a>
+	<button style="width: 130px" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#largeModal">Rate</button>
+	@if (ViewBag.currentUserId != 0 && ViewBag.IsExpert==true)
+	{
+		<button style="width: 130px" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#largeModal1">Advise</button>
+	}
+
 </div>
+
+
+<!-- Ratings -->
+
+<div data-ajax="true" class="rating ">
+
+	<div class="rating_body">
+		<div class="rating_active"></div>
+		<div class="rating_items">
+
+			<input type="radio" class="rating_item" value="1" name="rating">
+			<input type="radio" class="rating_item" value="2" name="rating">
+			<input type="radio" class="rating_item" value="3" name="rating">
+			<input type="radio" class="rating_item" value="4" name="rating">
+			<input type="radio" class="rating_item" value="5" name="rating">
+		</div>
+	</div>
+	<div class="rating_value">@Model.Rating</div>
+</div>
+
+
+
+
+<div id="largeModal1" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg">
+	          <div class="modal-content">
+		          
+		          <div>Please choose the user:</div>
+		          @foreach (var user in ViewBag.AllUsers)
+		          {
+			          @if (user.Id != ViewBag.currentUserId)
+			          {
+				          <li><a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = user.Email, currentFilmId = ViewBag.currentFilmId})'>@user.FirstName</a></li>
+			          }
+
+		          }
+	          </div>
+	          </div>
+    	</div>
+
+
+@if(ViewBag.currentUserId!=0){
+
+<div id="largeModal" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg">
+	          <div class="modal-content">
+		          <div>Please rate according to the following criteria:</div>
+		          
+	                <div data-ajax="true" class="rating rating_set"><h4>Scenario:</h4>
+		                <div class="rating_body">
+			                <div class="rating_active "></div>
+			                <div class="rating_items">
+				                <input type="radio" class="rating_item" value="1" name="rating_scenario">
+				                <input type="radio" class="rating_item" value="2" name="rating_scenario">
+				                <input type="radio" class="rating_item" value="3" name="rating_scenario">
+				                <input type="radio" class="rating_item" value="4" name="rating_scenario">
+				                <input type="radio" class="rating_item" value="5" name="rating_scenario">
+			                </div>
+		                </div>
+		                <div class="rating_value">@Model.Rating</div>
+	                </div>
+
+	                <div data-ajax="true" class="rating rating_set"><h4>Actor play:</h4>
+		                <div class="rating_body">
+			                <div class="rating_active"></div>
+			                <div class="rating_items">
+				                <input type="radio" class="rating_item" value="1" name="rating_actor_play">
+				                <input type="radio" class="rating_item" value="2" name="rating_actor_play">
+				                <input type="radio" class="rating_item" value="3" name="rating_actor_play">
+				                <input type="radio" class="rating_item" value="4" name="rating_actor_play">
+				                <input type="radio" class="rating_item" value="5" name="rating_actor_play">
+			                </div>
+		                </div>
+		                <div class="rating_value">@Model.Rating</div>
+
+		                @*<div class="rating_value">@Model.Ratings.FirstOrDefault(r=>r.User.Id==ViewBag.currentUserId).ActorPlay</div>*@
+	                </div>
+	                
+	                <div data-ajax="true" class="rating rating_set"><h4>Filming:</h4>
+		                <div class="rating_body">
+			                <div class="rating_active"></div>
+			                <div class="rating_items">
+				                <input type="radio" class="rating_item" value="1" name="rating_filming">
+				                <input type="radio" class="rating_item" value="2" name="rating_filming">
+				                <input type="radio" class="rating_item" value="3" name="rating_filming">
+				                <input type="radio" class="rating_item" value="4" name="rating_filming">
+				                <input type="radio" class="rating_item" value="5" name="rating_filming">
+			                </div>
+		                </div>
+		                <div class="rating_value">@Model.Rating</div>
+		                </div>
+		                
+		                    <div data-ajax="true" class="rating rating_set" name="actorPlay"><h4>Actor play:</h4>
+                        		                <div class="rating_body">
+                        			                <div class="rating_active"></div>
+                        			                <div class="rating_items">
+                        				                <input type="radio" class="rating_item" value="1" name="rating_actor_play">
+                        				                <input type="radio" class="rating_item" value="2" name="rating_actor_play">
+                        				                <input type="radio" class="rating_item" value="3" name="rating_actor_play">
+                        				                <input type="radio" class="rating_item" value="4" name="rating_actor_play">
+                        				                <input type="radio" class="rating_item" value="5" name="rating_actor_play">
+                        			                </div>
+                        		                </div>
+                        		               <div class="rating_value">@Model.Rating</div>
+                        		                @*<div class="rating_value">@Model.Ratings.Find(r=>r.User.Id==).ActorPlay</div>*@
+                        	                </div>
+		          
+		          <a style="width: 130px; float: right" href='@Url.Action("AddRating", "Film", new {filmImage=Model.Image, generalImpression=4,actorPlay=1, scenario=4, filming=4})'>
+			          <button style="width: 130px" type="submit" class="btn btn-primary">Rate</button>
+		          </a>
+		          
+		                
+	                </div>
+	                </div>
+    	</div>
+   
+}
+<script src="~/js/Ratings.js"></script>
+
+
+
+
+
 <div id="main">
     <table class="table table-striped table-hover">
         <tbody>
@@ -99,49 +234,45 @@
 <!-- Comments -->
 
 <div class="container mt-3 d-flex justify-content-center" style="font-family: 'Poppins', sans-serif">
-    <div class="row d-flex justify-content-center" style="width: 100%; margin-top: 3%">
-        <div class="col-md-8">
-            <div class="text-left">
-                <h6>All comments(@Model.Comments.Count)</h6>
-            </div>
-            @foreach (var comment in Model.Comments)
-            {
-                <div class="card p-3 mb-2" style="background: rgba(255,205,106,0.3); border-radius: 15px">
-                    <div class="d-flex flex-row">
-                        <img src="~/images/merilian.png" height="40" width="40" class="rounded-circle" style="margin-right: 10px">
-                        <div class="d-flex flex-column ms-2">
-                            <h6 class="mb-1 text-primary">
-                                <a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = comment.User.Email})'>
-                                    @comment.User.FirstName @comment.User.LastName
-                                </a>
-                            </h6>
-                            <p class="comment-text" style="font-size: 14px">@comment.Text</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row gap-3 align-items-center">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-heart-o"></i> <span class="ms-1 fs-10">Like</span>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row">
-                            <span class="text-muted fw-normal fs-10">@comment.Time</span>
-                        </div>
-                    </div>
-                </div>
-            }
-            <div>
-                @using (Html.BeginForm("LeaveComment", "Film", FormMethod.Get))
-                {
-                    <div style="margin-bottom: 10px; margin-top: 15px">
-                        <textarea rows="1" autocomplete="off" class="form-control mr-sm-2" type="text" name="comment" placeholder="Type a comment..." style="overflow: hidden;" aria-label="Comment"></textarea>
-
-                    </div>
-                    <div>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="float: right">Leave a comment</button>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
+	<div class="row d-flex justify-content-center" style="width: 100%; margin-top: 3%">
+		<div class="col-md-8">
+			<div class="text-left">
+				<h6>All comments(@Model.Comments.Count)</h6>
+			</div>
+			@foreach (var comment in Model.Comments)
+			{
+				<div class="card p-3 mb-2" style="background: rgba(255,205,106,0.3); border-radius: 15px">
+					<div class="d-flex flex-row"> <img src="~/images/merilian.png" height="40" width="40" class="rounded-circle" style="margin-right: 10px">
+						<div class="d-flex flex-column ms-2">
+							<h6 class="mb-1 text-primary"><a href='@Url.Action("ShowAnotherUserPersonalPage", "User", new {anotherUserEmail = comment.User.Email})'>
+        @comment.User.FirstName @comment.User.LastName</a></h6>
+							<p class="comment-text" style="font-size: 14px">@comment.Text</p>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<div class="d-flex flex-row gap-3 align-items-center">
+							<div class="d-flex align-items-center"> <i class="fa fa-heart-o"></i> <span class="ms-1 fs-10">
+								<a href='@Url.Action("ToLikeAComment", "Comment", new {commentId = comment.Id})'>Like</a>
+								<p>@comment.Likes</p>
+							</span></div>
+							<div class="d-flex align-items-center"> <i class="fa fa-comment-o"></i> <span class="ms-1 fs-10">Comments</span> </div>
+						</div>
+						<div class="d-flex flex-row"> <span class="text-muted fw-normal fs-10">@comment.Time</span> </div>
+					</div>
+				</div>
+			}
+			<div>
+				@using (Html.BeginForm("LeaveComment", "Film", FormMethod.Get))
+				{
+					<div style="margin-bottom: 10px; margin-top: 15px">
+						<textarea rows="1" autocomplete="off" class="form-control mr-sm-2" type="text" name="comment" placeholder="Type a comment..." style="overflow: hidden;" aria-label="Comment"></textarea>
+						
+					</div>
+					<div>
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="float: right">Leave a comment</button>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
 </div>
