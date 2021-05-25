@@ -57,6 +57,7 @@ namespace FilmHub.Controllers
                 Favourite = new List<Film>()
             };
             var userId = _userService.Add(newUser);
+            HttpContext.Response.Cookies.Append("currentUserId",userId.ToString());
             IRegistrationService.isLogged = true;
             IRegistrationService.currentUserId = userId;
             return RedirectToAction("ShowPersonalPage", "User");
@@ -91,6 +92,8 @@ namespace FilmHub.Controllers
             bool correct = _userService.Find(currUser);
             if (correct)
             {
+                HttpContext.Response.Cookies.Append("currentUserId",
+                    _userService.CurrentUser_Id(currUser).ToString());
                 IRegistrationService.isLogged = true;
                 IRegistrationService.currentUserId = _userService.CurrentUser_Id(currUser);
                 return RedirectToAction("ShowPersonalPage", "User");

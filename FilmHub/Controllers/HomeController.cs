@@ -18,24 +18,12 @@ namespace FilmHub.Controllers
         {
             _logger = logger;
         }
-        
-        /*private readonly IFilmService _filmService;
-
-        public HomeController(IFilmService filmService)
-        {
-            _filmService = filmService;
-        }*/
 
         public IActionResult Index()
         {
-            //ViewBag.newFilms = _filmService.GetNewFilms();
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
