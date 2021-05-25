@@ -37,7 +37,7 @@
 </header>
 
 <div class="@(ViewData["container"] ?? "container mt-5")">
-    <main role="main" class="pb-3">
+    <main role="main" class="@(ViewData["container"] ?? "pb-3")">
         @RenderBody()
     </main>
 </div>

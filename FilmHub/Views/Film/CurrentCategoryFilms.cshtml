@@ -26,21 +26,21 @@
 </div>
 
 <div id="main">
-<form method="post">
-    <div id="thumbs" style="">    
-        @foreach (var film in Model)
-        {
-            if (film.Genre == @ViewBag.currentCategory)
+    <form method="post">
+        <div id="thumbs" style="">
+            @foreach (var film in Model)
             {
-                <figure class="sign" style="display: inline-block; text-align: center; margin-right: 15px">
-                    <a style="margin-right: 5px" href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
-                        <img style="border-radius: 10px; border: 1px solid #000000" src='@Url.Content(@film.Image)' height="330" width="220"/>
-                    </a>
-                    <figcaption style="text-align: center">@Url.Content(film.Title)</figcaption>
-                </figure>
-        }
-        }
-        <span class="stretch"></span>
-    </div>
-</form>
+                if (film.Genre == @ViewBag.currentCategory)
+                {
+                    <figure class="sign" style="display: inline-block; text-align: center; margin-right: 15px">
+                        <a style="margin-right: 5px" href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
+                            <img style="border-radius: 10px; border: 1px solid #000000" src='@Url.Content(@film.Image)' height="330" width="220"/>
+                        </a>
+                        <figcaption style="text-align: center">@Url.Content(film.Title)</figcaption>
+                    </figure>
+                }
+            }
+            <span class="stretch"></span>
+        </div>
+    </form>
 </div>
