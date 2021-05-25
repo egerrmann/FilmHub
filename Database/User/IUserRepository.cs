@@ -5,6 +5,7 @@ namespace Database.User
 {
     public interface IUserRepository
     {
+        List<User> GetAllUsers();
         int Add(User model);
         int Count();
         bool Find(User model);
@@ -20,5 +21,7 @@ namespace Database.User
         List<User> SimilarUsers(int currentUserId);
         User FindByEmail(string userEmail);
         bool IsExpert(int currentUserId);
+        void MakeAnExpert(int currentUserId);
+        void AddToAdvised(int currentFilmId, int userIdToAdvise);
     }
 }

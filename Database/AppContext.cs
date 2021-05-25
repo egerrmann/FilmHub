@@ -15,6 +15,7 @@ namespace Database
         public DbSet<UserDbModel> FilmHubUsers { get; set; }
         public DbSet<FilmDbModel> FilmHubFilms { get; set; }
         public DbSet<CommentDbModel> Comments { get; set; }
+        public DbSet<RatingDbModel> Ratings { get; set; }
         public void SaveChanges()
         {
             base.SaveChanges();
@@ -28,7 +29,7 @@ namespace Database
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=9248;Database=Filmhub;Username=postgres;Password=a1g23_ul4");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Filmhub;Username=postgres;Password=5432");
         }
     }
 }

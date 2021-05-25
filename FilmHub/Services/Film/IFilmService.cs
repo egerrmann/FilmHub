@@ -19,8 +19,8 @@ namespace FilmHub.Services.Film
         List<Database.Film.Film> SearchAndGetFilms(string parameter);
         public void LeaveComment(string comment, int userId, int filmId);
         public void AddToBookmarks(int filmId, int userId);
-        
-        
+        void AddRating(int filmId, int userId, int generalImpression, int actorPlay, int scenario, int filming);
+        void UpdateRating(int filmId);
         
         Database.User.User FindById(int currentUserId);
     }
