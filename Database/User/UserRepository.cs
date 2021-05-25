@@ -16,7 +16,26 @@ namespace Database.User
         {
             _dbContext = data;
         }
-        
+
+
+        public List<User> GetAllUsers()
+        {
+            return _dbContext.FilmHubUsers.Select(u => new User
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                Email = u.Email,
+                Password = u.Password,
+                LastName = u.LastName,
+                Country = u.Country,
+                DateOfBirth = u.DateOfBirth,
+                Favourite = u.Favourite.Select(f => new Film.Film()).ToList(),
+                Bookmarks = u.Bookmarks.Select(f => new Film.Film()).ToList(),
+                Ratings = u.Ratings.Select(f => new Rating()).ToList(),
+                //AdvisedFilms = u.AdvisedFilms.Select(f=>new Film.Film()).ToList()
+
+            }).ToList();
+        }
 
         public int Add(User model)
         {
@@ -29,7 +48,9 @@ namespace Database.User
                 Country = model.Country,
                 DateOfBirth = model.DateOfBirth,
                 Favourite = new List<FilmDbModel>(),
-                Bookmarks = new List<FilmDbModel>()
+                Bookmarks = new List<FilmDbModel>(),
+                Ratings = new List<RatingDbModel>(),
+                AdvisedFilms =new List<FilmDbModel>()
             };
             _dbContext.FilmHubUsers.Add(dbModel);
             _dbContext.SaveChanges();
@@ -72,6 +93,8 @@ namespace Database.User
             UserDbModel user = _dbContext.FilmHubUsers.Include(u => u.Favourite)
                 .Include(u => u.Comments)
                 .Include(u => u.Bookmarks)
+                .Include(u=>u.Ratings)
+                .Include(u=>u.AdvisedFilms)
                 .FirstOrDefault(u => u.Id == id);
             var u = new User
             {
@@ -93,7 +116,9 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
-                    Trailer = f.Trailer
+                    Trailer = f.Trailer,
+                    Rating = f.Rating,
+                    
                 }).ToList(),
                 Bookmarks = user.Bookmarks.Select(f => new Film.Film()
                 {
@@ -107,8 +132,30 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
-                    Trailer = f.Trailer
-                }).ToList()
+                    Trailer = f.Trailer,
+                    Rating = f.Rating
+                }).ToList(),
+                AdvisedFilms = user.AdvisedFilms.Select(f => new Film.Film()
+                {
+                    Title = f.Title,
+                    Year = f.Year,
+                    Genre = f.Genre,
+                    Director = f.Director,
+                    Summary = f.Summary,
+                    Time = f.Time,
+                    Age = f.Age,
+                    Country = f.Country,
+                    Actors = f.Actors,
+                    Image = f.Image,
+                    Trailer = f.Trailer,
+                    Rating = f.Rating
+                }).ToList(),
+                /*Ratings = user.Ratings.Select(r=>new Film.Rating()
+                {
+                    Scenario = r.Scenario,
+                    
+                    
+                }).ToList()*/
             }; 
             return u;
         }
@@ -117,8 +164,12 @@ namespace Database.User
         {
             var currentUser = _dbContext.FilmHubUsers.Include(u => u.Favourite).
                 Include(u => u.Comments)
-                .Include(u => u.Bookmarks).FirstOrDefault(u => u.Id == id);
-            var currentFilm = _dbContext.FilmHubFilms.Include(f => f.Comments).
+                .Include(u => u.Bookmarks)
+                .Include(u => u.Ratings)
+                .Include(u=>u.AdvisedFilms)
+                .FirstOrDefault(u => u.Id == id);
+            var currentFilm = _dbContext.FilmHubFilms.Include(f => f.Comments)
+                .Include(f => f.Ratings).
                 FirstOrDefault(f => f.Image == image);
             currentUser.Favourite.Add(currentFilm);
             _dbContext.SaveChanges();
@@ -147,7 +198,9 @@ namespace Database.User
                             Actors = dbFilm.Actors,
                             Image = dbFilm.Image,
                             Trailer = dbFilm.Trailer,
-                            Comments = dbFilm.Comments.Select(c => new Comment()).ToList()
+                            Comments = dbFilm.Comments.Select(c => new Comment()).ToList(),
+                            /*Ratings = dbFilm.Ratings.Select(r=>new Rating()).ToList()*/
+                            Rating = dbFilm.Rating
                         };
                         recommendedFilmsDirector.Add(film);
                     }
@@ -180,7 +233,9 @@ namespace Database.User
                             Actors = dbFilm.Actors,
                             Image = dbFilm.Image,
                             Trailer = dbFilm.Trailer,
-                            Comments = dbFilm.Comments.Select(c => new Comment()).ToList()
+                            Comments = dbFilm.Comments.Select(c => new Comment()).ToList(),
+                            /*Ratings = dbFilm.Ratings.Select(r=>new Rating()).ToList()*/
+                            Rating = dbFilm.Rating
                         };
                         recommendedFilmsGenre.Add(film);
                     }
@@ -244,7 +299,11 @@ namespace Database.User
             UserDbModel currentUser = _dbContext.FilmHubUsers.Find(currentUserId);
             int sameFilms = 0;
             foreach (var anotherUser in _dbContext.FilmHubUsers.Include(u => u.Bookmarks)
-                .Include(u => u.Comments).Include(u => u.Favourite))
+                .Include(u => u.Comments)
+                .Include(u => u.Favourite)
+                .Include(u => u.Ratings)
+                /*.Include(u=>u.AdvisedFilms)*/)
+                
             {
                 sameFilms = 0;
                 if (anotherUser.Id != currentUserId)
@@ -282,7 +341,8 @@ namespace Database.User
                                 Country = f.Country,
                                 Actors = f.Actors,
                                 Image = f.Image,
-                                Trailer = f.Trailer
+                                Trailer = f.Trailer,
+                                Rating = f.Rating
                             }).ToList(),
                             Bookmarks = anotherUser.Bookmarks.Select(f => new Film.Film()
                             {
@@ -296,8 +356,15 @@ namespace Database.User
                                 Country = f.Country,
                                 Actors = f.Actors,
                                 Image = f.Image,
-                                Trailer = f.Trailer
+                                Trailer = f.Trailer,
+                                Rating = f.Rating
+
                             }).ToList()
+                            /*Ratings = user.Ratings.Select(r=>new Film.Rating()
+           {
+               Scenario = r.Scenario,
+               
+           }).ToList()*/
                         };
                         similarUsers.Add(similarUser);
                     }
@@ -316,6 +383,8 @@ namespace Database.User
             UserDbModel user = _dbContext.FilmHubUsers.Include(u => u.Favourite)
                 .Include(u => u.Comments)
                 .Include(u => u.Bookmarks)
+                .Include(u => u.Ratings)
+                .Include(u=>u.AdvisedFilms)
                 .FirstOrDefault(u => u.Email == userEmail);
             var u = new User
             {
@@ -337,7 +406,9 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
-                    Trailer = f.Trailer
+                    Trailer = f.Trailer,
+                    Rating = f.Rating
+
                 }).ToList(),
                 Bookmarks = user.Bookmarks.Select(f => new Film.Film()
                 {
@@ -351,20 +422,82 @@ namespace Database.User
                     Country = f.Country,
                     Actors = f.Actors,
                     Image = f.Image,
-                    Trailer = f.Trailer
-                }).ToList()
+                    Trailer = f.Trailer,
+                    Rating = f.Rating
+                }).ToList(),
+                  AdvisedFilms = user.AdvisedFilms.Select(f => new Film.Film()
+                                {
+                                    Title = f.Title,
+                                    Year = f.Year,
+                                    Genre = f.Genre,
+                                    Director = f.Director,
+                                    Summary = f.Summary,
+                                    Time = f.Time,
+                                    Age = f.Age,
+                                    Country = f.Country,
+                                    Actors = f.Actors,
+                                    Image = f.Image,
+                                    Trailer = f.Trailer,
+                                    Rating = f.Rating
+                                }).ToList(),
+
+            Ratings = user.Ratings.Select(r=>new Rating()
+           {
+               GeneralImpression=r.GeneralImpression,
+               Scenario = r.Scenario,
+               ActorPlay = r.ActorPlay,
+               Filming = r.Filming
+               /*User = new UserDbModel()
+               {
+                   FirstName = r.User.FirstName
+               }*/
+           }).ToList()
             }; 
             return u;
         }
 
         public bool IsExpert(int currentUserId)
         {
+            
             UserDbModel currentUser = _dbContext.FilmHubUsers.Find(currentUserId);
-            if (currentUser.Comments.Count >= 10)
+            if (currentUser.IsExpert)
             {
                 return true;
             }
             return false;
+        }
+
+        public void MakeAnExpert(int currentUserId)
+        {
+            List<int> amountOfComments=new List<int>();
+            foreach (var user in _dbContext.FilmHubUsers)
+            {
+                amountOfComments.Add(user.Comments.Count);
+            }
+
+            int averageCommentsAmount = (int) amountOfComments.Average();
+            UserDbModel currentUser = _dbContext.FilmHubUsers.Find(currentUserId);
+
+            if (currentUser.Comments.Count >= averageCommentsAmount)
+            {
+                currentUser.IsExpert = true;
+            }
+            _dbContext.SaveChanges();
+
+        }
+
+        public void AddToAdvised(int currentFilmId, int userIdToAdvise)
+        {
+            UserDbModel currentUser = _dbContext.FilmHubUsers.Include(u => u.Favourite)
+                .Include(u => u.Comments)
+                .Include(u => u.Bookmarks)
+                .Include(u => u.Ratings)
+                .Include(u=>u.AdvisedFilms).FirstOrDefault(u => u.Id == userIdToAdvise);
+            FilmDbModel currentFilm = _dbContext.FilmHubFilms.Include(f => f.Comments)
+                .Include(f=>f.Ratings)
+                .FirstOrDefault(f => f.Id == currentFilmId);
+            currentUser.AdvisedFilms.Add(currentFilm);
+            _dbContext.SaveChanges();
         }
     }
 }

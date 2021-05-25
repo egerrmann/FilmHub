@@ -16,10 +16,14 @@ namespace FilmHub.Controllers
 {
     public class FilmController : Controller
     {
+        
         private readonly IFilmService _filmService;
-        public FilmController(IFilmService filmService)
+        private readonly IUserService _userService;
+
+        public FilmController(IFilmService filmService,IUserService userService)
         {
             _filmService = filmService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -89,7 +93,10 @@ namespace FilmHub.Controllers
                 ViewBag.currentUserYearOfBirth = currentUserYears;
             }
             Film currentFilm = _filmService.GetCurrentFilmInfo(IFilmService.currentFilmId);
+            ViewBag.currentFilmId = _filmService.GetCurrentFilmId(currentFilm.Image);
+            ViewBag.currentUserId = IRegistrationService.currentUserId;
             ViewBag.lastElement = currentFilm.Actors.Last();
+            ViewBag.AllUsers = _userService.GetAllUsers();
             return View(currentFilm);
         }
 
@@ -114,6 +121,7 @@ namespace FilmHub.Controllers
                     Actors = film.Actors,
                     Image = film.Image,
                     Trailer = film.Trailer,
+                    Rating = film.Rating
                 };
                 foundFilms.Add(currentFilm);
             }
@@ -121,6 +129,19 @@ namespace FilmHub.Controllers
             return View(foundFilms);
         }
 
+        public class RatingModel
+        {
+            public string RatingType { get; set; }
+
+            public string RatingValue { get; set; }
+        }
+        
+        [HttpPost]
+        public int GetRating([FromBody]RatingModel model)
+        {
+            return 3;
+        }
+        
         [HttpGet]
         public IActionResult LeaveComment(string comment)
         {
@@ -142,6 +163,32 @@ namespace FilmHub.Controllers
 
             var currentFilmId = _filmService.GetCurrentFilmId(filmImage);
             _filmService.AddToBookmarks(currentFilmId, IRegistrationService.currentUserId);
+            return RedirectToAction("FilmInfo", "Film");
+        }
+        
+        [HttpGet]
+        public IActionResult AddRating(string filmImage,int generalImpression, int actorPlay, int scenario, int filming)
+        {
+            if (IRegistrationService.currentUserId == 0)
+            {
+                return RedirectToAction("LogIn", "Registration");
+            }
+
+            var currentFilmId = _filmService.GetCurrentFilmId(filmImage);
+            _filmService.AddRating(currentFilmId, IRegistrationService.currentUserId,generalImpression, actorPlay, scenario,  filming);
+            return RedirectToAction("FilmInfo", "Film");
+        }
+        
+        [HttpGet]
+        public IActionResult UpdateRating(string filmImage,int generalImpression, int actorPlay, int scenario, int filming)
+        {
+            if (IRegistrationService.currentUserId == 0)
+            {
+                return RedirectToAction("LogIn", "Registration");
+            }
+
+            var currentFilmId = _filmService.GetCurrentFilmId(filmImage);
+            _filmService.UpdateRating(currentFilmId);
             return RedirectToAction("FilmInfo", "Film");
         }
     }

@@ -15,5 +15,9 @@ namespace FilmHub.Models
         public string DateOfBirth { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Film> Bookmarks { get; set; }
+        public List<Rating> Ratings { get; set; }
+        public bool IsExpert { get; set; }
+        public List<Film> AdvisedFilms { get; set; }
+
     }
 }

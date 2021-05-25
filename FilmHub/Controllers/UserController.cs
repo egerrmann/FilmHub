@@ -150,19 +150,40 @@ namespace FilmHub.Controllers
         }
 
         [HttpGet]
-        public IActionResult ShowAnotherUserPersonalPage(string anotherUserEmail)
+        public IActionResult ShowAnotherUserPersonalPage(string anotherUserEmail,int currentFilmId)
         {
+            if (currentFilmId == 0)
+            {
+                return RedirectToAction("AllFilms", "Film");
+            }
+            
+            
             User anotherUser = _userService.FindByEmail(anotherUserEmail);
             UserViewModel anotherUserViewModel = new UserViewModel
             {
+               
                 FirstName = anotherUser.FirstName,
                 LastName = anotherUser.LastName,
                 Favourite = anotherUser.Favourite,
                 Country = anotherUser.Country,
                 Email = anotherUser.Email,
-                DateOfBirth = anotherUser.DateOfBirth
+                DateOfBirth = anotherUser.DateOfBirth,
+                Bookmarks = anotherUser.Bookmarks,
+                Ratings = anotherUser.Ratings
             };
+            ViewBag.currentFilmId = currentFilmId;
+            ViewBag.currentUserId = _userService.CurrentUser_Id(anotherUser);
             return View(anotherUserViewModel);
         }
+        
+        [HttpGet]
+        public IActionResult AddToAdvised(int currentFilmId,int userIdToAdvise)
+        {  
+            
+            _userService.AddToAdvised(currentFilmId, userIdToAdvise);
+            return RedirectToAction("AllFilms", "Film");
+        }
+        
     }
 }
+

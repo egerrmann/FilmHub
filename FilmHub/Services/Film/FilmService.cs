@@ -76,6 +76,17 @@ namespace FilmHub.Services.Film
         {
             _filmRepository.AddToBookmarks(filmId, userId);
         }
+        
+        /*void AddRating(int filmId, int userId,...);*/
+        public void UpdateRating(int filmId)
+        {
+            _filmRepository.UpdateRating(filmId);
+        }
+
+        public void AddRating(int filmId, int userId, int generalImpression, int actorPlay, int scenario, int filming)
+        {
+            _filmRepository.AddRating(filmId, userId,  generalImpression,  actorPlay, scenario, filming);
+        }
 
         public Database.User.User FindById(int currentUserId)
         {
