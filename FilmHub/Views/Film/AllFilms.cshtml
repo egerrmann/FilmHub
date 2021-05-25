@@ -16,9 +16,9 @@
 
 <div>
     <div class="dropdown" style="margin-bottom: 2%; text-align: right; margin-right: 10%">
-            <button style="width: 120px" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @ViewBag.button
-            </button>
+        <button style="width: 120px" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @ViewBag.button
+        </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href='@Url.Action("AllFilms", "Film", new {sort = "title"})'>Title</a>
             <a class="dropdown-item" href='@Url.Action("AllFilms", "Film", new {sort = "year"})'>Year</a>
@@ -61,7 +61,4 @@
     </form>
 </div>
 
-@{
-    
-}
 </body>

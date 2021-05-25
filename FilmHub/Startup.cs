@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Database;
 using Database.Film;
 using Database.User;
+using Database.Comment;
+using FilmHub.Services.Comment;
 using FilmHub.Services.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,9 +33,11 @@ namespace FilmHub
             services.AddRazorPages();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IFilmRepository, FilmRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRegistrationService, RegistrationService>();
             services.AddTransient<IFilmService, FilmService>();
+            services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IAppContext, AppContext>();
         }
 

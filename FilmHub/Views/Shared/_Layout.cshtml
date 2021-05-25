@@ -21,7 +21,6 @@
         <div class="collapse navbar-collapse ml-5" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Film" asp-action="AllFilms">Films</a></li>
                 <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="ShowPersonalPage">User page</a></li>
             </ul>
@@ -38,14 +37,14 @@
 </header>
 
 <div class="@(ViewData["container"] ?? "container mt-5")">
-    <main role="main" class="pb-3">
+    <main role="main" class="@(ViewData["container"] ?? "pb-3")">
         @RenderBody()
     </main>
 </div>
 
 <footer style="background: #e4e4e4" class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - FilmHub - All rights reserved - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2021 - FilmHub - All rights reserved
         <a style="float: right" href="https://github.com/egerrmann/FilmHub.git">
             <img src="~/images/github-logo.png" width="27px" height="27px" title="GitHub" alt="GitHub"> 
         </a>

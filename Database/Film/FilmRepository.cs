@@ -203,7 +203,8 @@ namespace Database.Film
                 User = currentUser,
                 Film = currentFilm,
                 Text = comment,
-                Time = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToShortTimeString()}"
+                Time = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToShortTimeString()}",
+                Likes = 0
             };
             _dbContext.Comments.Add(newComment);
             _dbContext.SaveChanges();
@@ -215,10 +216,12 @@ namespace Database.Film
                 .Where(c => c.Film.Id == filmId).ToList();
             List<Comment> comments = dbComment.Select(c => new Comment()
             {
+                Id = c.Id,
                 User = c.User,
                 Film = c.Film,
                 Text = c.Text,
-                Time = c.Time
+                Time = c.Time,
+                Likes = c.Likes
             }).ToList();
             return comments;
         }
