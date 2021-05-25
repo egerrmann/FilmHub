@@ -17,5 +17,7 @@ namespace FilmHub.Models
         public string Image { get; set; }
         public string Trailer { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Rating> Ratings { get; set; }
+        public double Rating { get; set; }
     }
 }

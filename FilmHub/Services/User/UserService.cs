@@ -7,6 +7,11 @@ namespace FilmHub.Services.User
 {
     public class UserService : IUserService
     {
+        public List<Database.User.User> GetAllUsers()
+        {
+            return _userRepository.GetAllUsers();
+        }
+
         private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
@@ -83,6 +88,16 @@ namespace FilmHub.Services.User
         public int ChangedPasswordIsCorrect(int id, string oldPassword, string newPassword, string newPasswordRepeat)
         {
             return _userRepository.ChangedPasswordIsCorrect(id, oldPassword, newPassword,  newPasswordRepeat);
+        }
+
+        public void AddToAdvised(int currentFilmId, int userIdToAdvise)
+        {
+            _userRepository.AddToAdvised(currentFilmId,userIdToAdvise);
+        }
+
+        public void MakeAnExpert(int currentUserId)
+        {
+            _userRepository.MakeAnExpert(currentUserId);
         }
 
         static string ErrorMessage;
