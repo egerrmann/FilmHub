@@ -18,9 +18,6 @@ namespace Database.Film
         List<Comment> GetAllComments(int filmId);
         void AddToBookmarks(int film, int userId);
         
-        
-        
-        
         Database.User.User FindById(int id);
     }
 }

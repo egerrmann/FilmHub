@@ -14,6 +14,6 @@ namespace Database.User
         public string DateOfBirth { get; set; }
         public List<Film.Film> Favourite { get; set; }
         public List<Film.Film> Bookmarks { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<Film.Comment> Comments { get; set; }
     }
 }
