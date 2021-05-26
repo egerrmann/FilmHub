@@ -195,7 +195,7 @@ namespace Database.User
                             Country = dbFilm.Country,
                             Actors = dbFilm.Actors,
                             Image = dbFilm.Image,
-                            Comments = dbFilm.Comments.Select(c => new Film.Comment()).ToList()
+                            Comments = dbFilm.Comments.Select(c => new Film.Comment()).ToList(),
                             /*Ratings = dbFilm.Ratings.Select(r=>new Rating()).ToList()*/
                             Rating = dbFilm.Rating
                         };
@@ -230,7 +230,7 @@ namespace Database.User
                             Actors = dbFilm.Actors,
                             Image = dbFilm.Image,
                             Trailer = dbFilm.Trailer,
-                            Comments = dbFilm.Comments.Select(c => new Film.Comment()).ToList()
+                            Comments = dbFilm.Comments.Select(c => new Film.Comment()).ToList(),
                             /*Ratings = dbFilm.Ratings.Select(r=>new Rating()).ToList()*/
                             Rating = dbFilm.Rating
                         };

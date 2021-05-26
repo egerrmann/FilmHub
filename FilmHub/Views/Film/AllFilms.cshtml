@@ -53,7 +53,7 @@
                     <a href='@Url.Action("CurrentFilm", "Film", new {image = film.Image})'>
                         <img style="border-radius: 10px; border: 1px solid #000000;" src='@Url.Content(film.Image)' height="330" width="220" alt="Film Image"/>
                     </a>
-                    <figcaption style="text-align: center">@Url.Content(film.Title)</figcaption>
+                    <figcaption style="text-align: center; width: 220px">@Url.Content(film.Title)</figcaption>
                 </figure>
             }
             <span class="stretch"></span>
